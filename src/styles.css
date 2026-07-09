@@ -1,18 +1,22 @@
 :root {
-  color-scheme: light dark;
-  --paper: #f7f7f3;
-  --paper-warm: #fbf3ea;
-  --ink: #171717;
-  --muted: #8a8a86;
-  --soft: #e9e6df;
-  --line: rgba(0, 0, 0, 0.1);
-  --blue: #21a7e8;
-  --pink: #ef4c85;
+  color-scheme: dark;
+  --paper: #0b080c;
+  --paper-warm: #120d15;
+  --ink: #eae5ec;
+  --muted: #adacac;
+  --soft: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.1);
+  --blue: #c2a4ff;
+  --pink: #fb8dff;
   --orange: #f16c2f;
-  --shadow: 0 24px 70px rgba(0, 0, 0, 0.15);
-  --space: #03070e;
-  --space-2: #071522;
-  --glow: #9eeeff;
+  --shadow: 0 32px 110px rgba(0, 0, 0, 0.34);
+  --space: #0b080c;
+  --space-2: #160d1d;
+  --glow: #c481ff;
+  --lavender: #c2a4ff;
+  --violet: #c481ff;
+  --hot: #fb8dff;
+  --ghost: rgba(255, 255, 255, 0.03);
 }
 
 * {
@@ -20,16 +24,19 @@
 }
 
 html {
-  background: var(--paper);
+  background: var(--space);
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--paper);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(196, 129, 255, 0.16), transparent 28rem),
+    radial-gradient(circle at 88% 0%, rgba(251, 141, 255, 0.08), transparent 26rem),
+    var(--space);
   color: var(--ink);
-  font-family: Inter, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-family: Geist, Inter, "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
   letter-spacing: 0;
   overflow-x: hidden;
 }
@@ -58,14 +65,14 @@ img {
 
 .siteHeader {
   align-items: center;
-  background: rgba(3, 7, 14, 0.74);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(190, 238, 255, 0.12);
+  background: rgba(11, 8, 12, 0.5);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: grid;
   gap: 24px;
   grid-template-columns: 220px 1fr auto;
   left: 0;
-  min-height: 88px;
+  min-height: 92px;
   padding: 0 clamp(28px, 5vw, 86px);
   position: fixed;
   right: 0;
@@ -74,30 +81,53 @@ img {
 }
 
 .logo {
-  color: #f7fbff;
-  font-size: 46px;
+  color: var(--ink);
+  font-size: 34px;
   font-weight: 800;
-  letter-spacing: 0;
+  letter-spacing: 0.02em;
   line-height: 1;
 }
 
 .logo span:first-child {
-  color: var(--blue);
+  color: var(--lavender);
 }
 
 .logo span:last-child {
-  color: var(--pink);
+  color: var(--hot);
 }
 
 .siteHeader nav {
   display: flex;
-  gap: clamp(40px, 6vw, 100px);
+  gap: clamp(26px, 4vw, 72px);
   justify-content: center;
 }
 
 .siteHeader nav a {
-  color: rgba(231, 244, 255, 0.7);
+  color: rgba(234, 229, 236, 0.78);
   font-size: 16px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.navRoll {
+  display: block;
+  height: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.navRoll::after {
+  color: var(--lavender);
+  content: attr(data-copy);
+  display: block;
+  transform: translateY(10px);
+  transition: transform 240ms ease;
+}
+
+.siteHeader nav a:hover .navRoll::after {
+  transform: translateY(-24px);
 }
 
 .headerTools {
@@ -108,10 +138,10 @@ img {
 
 .pill {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(190, 238, 255, 0.14);
+  background: var(--ghost);
+  border: 1px solid var(--line);
   border-radius: 999px;
-  color: rgba(231, 244, 255, 0.74);
+  color: rgba(234, 229, 236, 0.74);
   display: inline-flex;
   font-size: 13px;
   height: 32px;
@@ -120,9 +150,10 @@ img {
 
 .emailButton {
   align-items: center;
-  background: #f4fbff;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 5px;
-  color: #061019;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--ink);
   display: inline-flex;
   height: 54px;
   padding: 0 24px;
@@ -131,10 +162,10 @@ img {
 .hero {
   align-items: center;
   background:
-    radial-gradient(circle at 50% 45%, rgba(117, 210, 255, 0.18), transparent 28rem),
-    radial-gradient(circle at 18% 18%, rgba(87, 112, 255, 0.2), transparent 26rem),
-    radial-gradient(circle at 82% 78%, rgba(130, 255, 221, 0.13), transparent 28rem),
-    linear-gradient(180deg, #03070e 0%, #07111d 58%, #03070e 100%);
+    radial-gradient(circle at 50% 38%, rgba(196, 129, 255, 0.2), transparent 28rem),
+    radial-gradient(circle at 14% 20%, rgba(194, 164, 255, 0.14), transparent 25rem),
+    radial-gradient(circle at 84% 78%, rgba(251, 141, 255, 0.08), transparent 25rem),
+    linear-gradient(180deg, #0b080c 0%, #130d19 58%, #0b080c 100%);
   display: grid;
   min-height: 100vh;
   overflow: hidden;
@@ -144,8 +175,8 @@ img {
 
 .hero::before {
   background:
-    linear-gradient(rgba(190, 238, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(190, 238, 255, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: 68px 68px;
   content: "";
   inset: 0;
@@ -156,7 +187,7 @@ img {
 }
 
 .hero::after {
-  background: linear-gradient(180deg, transparent, rgba(3, 7, 14, 0.92));
+  background: linear-gradient(180deg, transparent, rgba(11, 8, 12, 0.94));
   bottom: 0;
   content: "";
   height: 32vh;
@@ -173,8 +204,153 @@ img {
   position: absolute;
 }
 
+.robotHeroLayer {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.robotGrid {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 54px 54px;
+  inset: 0;
+  mask-image: radial-gradient(circle at 58% 45%, black 0%, transparent 68%);
+  opacity: 0.65;
+  position: absolute;
+}
+
+.robotAura {
+  background: radial-gradient(circle, rgba(196, 129, 255, 0.34), rgba(194, 164, 255, 0.08) 38%, transparent 66%);
+  border-radius: 50%;
+  filter: blur(4px);
+  height: min(48vw, 700px);
+  left: 50%;
+  opacity: 0.74;
+  position: absolute;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  width: min(48vw, 700px);
+}
+
+.robotFigure {
+  animation: robotFloat 7s ease-in-out infinite;
+  height: min(46vw, 620px);
+  left: 50%;
+  opacity: 0.78;
+  position: absolute;
+  top: 49%;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  width: min(36vw, 470px);
+}
+
+.robotHead,
+.robotBody,
+.robotNeck,
+.robotAntenna {
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.robotAntenna {
+  background: linear-gradient(180deg, transparent, rgba(234, 229, 236, 0.62));
+  height: 13%;
+  top: 2%;
+  width: 2px;
+}
+
+.robotAntenna::before {
+  background: var(--hot);
+  border-radius: 50%;
+  box-shadow: 0 0 24px rgba(251, 141, 255, 0.62);
+  content: "";
+  height: 14px;
+  left: 50%;
+  position: absolute;
+  top: -6px;
+  transform: translateX(-50%);
+  width: 14px;
+}
+
+.robotHead {
+  background: linear-gradient(145deg, rgba(234, 229, 236, 0.94), rgba(127, 106, 170, 0.66));
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 28px;
+  box-shadow: 0 36px 120px rgba(196, 129, 255, 0.18);
+  height: 23%;
+  top: 16%;
+  width: 48%;
+}
+
+.robotHead i {
+  background: #0b080c;
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(196, 129, 255, 0.7);
+  height: 12px;
+  position: absolute;
+  top: 48%;
+  width: 12px;
+}
+
+.robotHead i:first-child { left: 30%; }
+.robotHead i:last-child { right: 30%; }
+
+.robotNeck {
+  background: rgba(234, 229, 236, 0.28);
+  height: 9%;
+  top: 38%;
+  width: 14%;
+}
+
+.robotBody {
+  background: linear-gradient(160deg, rgba(234, 229, 236, 0.2), rgba(196, 129, 255, 0.08));
+  border: 1px solid rgba(234, 229, 236, 0.2);
+  border-radius: 34px 34px 48px 48px;
+  height: 36%;
+  top: 47%;
+  width: 62%;
+}
+
+.robotBody b {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  height: 8px;
+  left: 22%;
+  position: absolute;
+  right: 22%;
+}
+
+.robotBody b:nth-child(1) { top: 30%; }
+.robotBody b:nth-child(2) { top: 48%; }
+.robotBody b:nth-child(3) { top: 66%; }
+
+.robotOrb {
+  border: 1px solid rgba(196, 129, 255, 0.22);
+  border-radius: 50%;
+  height: 160px;
+  position: absolute;
+  width: 160px;
+}
+
+.robotOrbOne { animation: tagFloat 9s ease-in-out infinite alternate; left: 17vw; top: 26vh; }
+.robotOrbTwo { animation: tagFloat 11s ease-in-out infinite alternate-reverse; right: 18vw; top: 58vh; }
+
+.robotSignal {
+  background: linear-gradient(90deg, transparent, rgba(194, 164, 255, 0.36), transparent);
+  height: 1px;
+  position: absolute;
+  width: 34vw;
+}
+
+.robotSignalOne { left: 14vw; top: 42vh; transform: rotate(18deg); }
+.robotSignalTwo { right: 14vw; top: 42vh; transform: rotate(-18deg); }
+
 .orbit {
-  border: 1px solid rgba(158, 238, 255, 0.12);
+  border: 1px solid rgba(196, 129, 255, 0.12);
   border-radius: 50%;
   left: 50%;
   position: absolute;
@@ -196,9 +372,9 @@ img {
 }
 
 .drift {
-  background: rgba(204, 247, 255, 0.8);
+  background: rgba(251, 141, 255, 0.8);
   border-radius: 50%;
-  box-shadow: 0 0 34px rgba(145, 229, 255, 0.52);
+  box-shadow: 0 0 34px rgba(251, 141, 255, 0.52);
   height: 4px;
   position: absolute;
   width: 4px;
@@ -223,9 +399,9 @@ img {
 }
 
 .systemTag {
-  border: 1px solid rgba(190, 238, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  color: rgba(219, 244, 255, 0.62);
+  color: rgba(234, 229, 236, 0.54);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -239,7 +415,7 @@ img {
 .tagFour { animation: tagFloat 14s ease-in-out infinite alternate-reverse; bottom: 23vh; right: 9vw; }
 
 .heroIntro {
-  color: rgba(218, 242, 255, 0.64);
+  color: var(--lavender);
   display: grid;
   font-size: 15px;
   gap: 10px;
@@ -249,11 +425,11 @@ img {
   position: relative;
   text-align: center;
   text-transform: uppercase;
-  z-index: 3;
+  z-index: 4;
 }
 
 .heroIntro strong {
-  color: rgba(247, 252, 255, 0.86);
+  color: rgba(234, 229, 236, 0.92);
   font-size: 18px;
   font-weight: 500;
   letter-spacing: 0;
@@ -266,7 +442,7 @@ img {
   max-width: 1500px;
   position: relative;
   width: min(92vw, 1500px);
-  z-index: 3;
+  z-index: 4;
 }
 
 .particleTitle canvas {
@@ -278,7 +454,7 @@ img {
 
 .particleTitle::before,
 .particleTitle::after {
-  background: linear-gradient(90deg, transparent, rgba(158, 238, 255, 0.28), transparent);
+  background: linear-gradient(90deg, transparent, rgba(196, 129, 255, 0.32), transparent);
   content: "";
   height: 1px;
   left: 12%;
@@ -303,7 +479,7 @@ img {
 }
 
 .heroMeta span {
-  color: rgba(214, 240, 255, 0.42);
+  color: rgba(194, 164, 255, 0.58);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -311,7 +487,7 @@ img {
 }
 
 .heroMeta strong {
-  color: rgba(244, 251, 255, 0.76);
+  color: rgba(234, 229, 236, 0.76);
   font-size: 17px;
   font-weight: 500;
 }
@@ -338,8 +514,8 @@ img {
 .heroActions a,
 .seasonPreview button {
   align-items: center;
-  border: 1px solid rgba(190, 238, 255, 0.22);
-  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
   display: inline-flex;
   font-weight: 650;
   height: 56px;
@@ -350,13 +526,13 @@ img {
 
 .heroActions a:first-child,
 .seasonPreview button {
-  background: rgba(244, 251, 255, 0.92);
-  color: #061019;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ink);
 }
 
 .heroActions a:last-child {
-  background: rgba(255, 255, 255, 0.04);
-  color: white;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--lavender);
 }
 
 .visuallyHidden {
@@ -383,10 +559,10 @@ img {
 }
 
 .idCard {
-  background: #efe9dd;
-  border: 1px solid #ddd5c8;
-  border-radius: 12px;
-  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
   margin: 0 auto;
   min-height: 580px;
   overflow: hidden;
@@ -396,7 +572,7 @@ img {
 }
 
 .idClamp {
-  background: #181818;
+  background: linear-gradient(180deg, rgba(196, 129, 255, 0.72), rgba(11, 8, 12, 0.8));
   border-radius: 0 0 10px 10px;
   height: 130px;
   left: 50%;
@@ -409,10 +585,10 @@ img {
 .idPhoto {
   align-items: center;
   background:
-    radial-gradient(circle at 62% 28%, rgba(33, 167, 232, 0.32), transparent 30%),
-    linear-gradient(145deg, #171717, #e9e5d7);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+    radial-gradient(circle at 62% 28%, rgba(196, 129, 255, 0.36), transparent 30%),
+    linear-gradient(145deg, #130d19, rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
   display: grid;
   height: 300px;
   justify-items: center;
@@ -420,7 +596,7 @@ img {
 }
 
 .idPhoto span {
-  color: #fff;
+  color: var(--ink);
   font-size: 72px;
   font-weight: 900;
 }
@@ -445,7 +621,7 @@ img {
 }
 
 .idBody p {
-  color: #6c6a64;
+  color: rgba(234, 229, 236, 0.62);
   margin: 0 0 18px;
 }
 
@@ -457,9 +633,10 @@ img {
 }
 
 .idTags span {
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  color: #6c665f;
+  color: rgba(234, 229, 236, 0.74);
   font-size: 12px;
   padding: 8px 12px;
 }
@@ -467,9 +644,9 @@ img {
 .aboutCopy h2,
 .strengthSection h2,
 .contactCopy h2 {
-  font-family: "Times New Roman", "Songti SC", SimSun, serif;
+  font-family: Geist, Inter, "Noto Sans SC", system-ui, sans-serif;
   font-size: clamp(44px, 4.8vw, 82px);
-  font-weight: 500;
+  font-weight: 650;
   letter-spacing: 0;
   line-height: 1.12;
   margin: 0 0 34px;
@@ -477,7 +654,7 @@ img {
 
 .aboutCopy p,
 .contactCopy p {
-  color: #77746e;
+  color: rgba(234, 229, 236, 0.68);
   font-size: 19px;
   line-height: 1.95;
   max-width: 920px;
@@ -512,12 +689,14 @@ img {
 }
 
 .metricStrip span {
-  color: #88847d;
+  color: rgba(234, 229, 236, 0.56);
   font-size: 14px;
 }
 
 .mapSection {
-  background: var(--paper);
+  background:
+    radial-gradient(circle at 16% 20%, rgba(196, 129, 255, 0.1), transparent 26rem),
+    var(--paper);
   padding-top: 72px;
 }
 
@@ -527,28 +706,28 @@ img {
 }
 
 .mapTitle h2 {
-  font-family: "Times New Roman", "Songti SC", SimSun, serif;
+  font-family: Geist, Inter, "Noto Sans SC", system-ui, sans-serif;
   font-size: clamp(52px, 6vw, 104px);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0;
   line-height: 0.95;
   margin: 6px 0 18px;
 }
 
 .mapTitle span {
-  color: #8e8a84;
+  color: rgba(234, 229, 236, 0.62);
   font-size: 18px;
 }
 
 .seasonFrame {
   background:
-    radial-gradient(circle at 50% 14%, rgba(255, 239, 199, 0.32), transparent 21rem),
-    radial-gradient(circle at 18% 22%, rgba(174, 231, 255, 0.26), transparent 24rem),
-    radial-gradient(circle at 82% 76%, rgba(216, 244, 255, 0.2), transparent 26rem),
-    linear-gradient(135deg, #153640 0%, #2e5d61 44%, #0c242d 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+    radial-gradient(circle at 50% 14%, rgba(196, 129, 255, 0.2), transparent 21rem),
+    radial-gradient(circle at 18% 22%, rgba(194, 164, 255, 0.14), transparent 24rem),
+    radial-gradient(circle at 82% 76%, rgba(251, 141, 255, 0.1), transparent 26rem),
+    linear-gradient(135deg, #0b080c 0%, #15101d 48%, #0b080c 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px;
-  box-shadow: 0 36px 110px rgba(30, 73, 86, 0.32);
+  box-shadow: var(--shadow);
   min-height: 820px;
   overflow: hidden;
   position: relative;
@@ -568,9 +747,9 @@ img {
 
 .seasonFrame::before {
   background:
-    linear-gradient(120deg, transparent, rgba(255, 244, 214, 0.18), transparent),
-    radial-gradient(circle at 42% 52%, rgba(255, 246, 212, 0.18), transparent 20rem),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 22%, rgba(0, 0, 0, 0.28));
+    linear-gradient(120deg, transparent, rgba(196, 129, 255, 0.14), transparent),
+    radial-gradient(circle at 42% 52%, rgba(194, 164, 255, 0.12), transparent 20rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 22%, rgba(0, 0, 0, 0.28));
   content: "";
   inset: 0;
   pointer-events: none;
@@ -1317,6 +1496,146 @@ img {
   padding: 13px 18px;
 }
 
+.sectionKicker,
+.mapTitle p,
+.idBody small {
+  color: var(--lavender);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.cardOrbitFrame {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(196, 129, 255, 0.18), transparent 25rem),
+    radial-gradient(circle at 16% 28%, rgba(194, 164, 255, 0.14), transparent 23rem),
+    radial-gradient(circle at 84% 72%, rgba(251, 141, 255, 0.12), transparent 24rem),
+    linear-gradient(145deg, #0b080c, #140f1b 56%, #0b080c);
+}
+
+.cardOrbitFrame::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.theme-mint,
+.theme-gold,
+.theme-ember,
+.theme-ice {
+  --card-glow-one: rgba(196, 129, 255, 0.24);
+  --card-glow-two: rgba(251, 141, 255, 0.12);
+}
+
+.orbitRail {
+  border-color: rgba(196, 129, 255, 0.18);
+}
+
+.orbitCard {
+  background: rgba(11, 8, 12, 0.78);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--ink);
+}
+
+.orbitCard::after {
+  background: linear-gradient(90deg, transparent, var(--violet), transparent);
+}
+
+.orbitIndex {
+  background: rgba(196, 129, 255, 0.16);
+  border-color: rgba(196, 129, 255, 0.44);
+  color: var(--lavender);
+}
+
+.seasonPreview {
+  background: rgba(11, 8, 12, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+}
+
+.seasonPreview small {
+  color: var(--lavender);
+}
+
+.seasonPreview p {
+  color: rgba(234, 229, 236, 0.68);
+}
+
+.seasonLegend button,
+.mapDetails p,
+.strengthGrid article,
+.contactLinks a,
+.contactLinks span {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(234, 229, 236, 0.82);
+}
+
+.seasonLegend button:hover,
+.seasonLegend button.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(196, 129, 255, 0.5);
+  color: var(--ink);
+}
+
+.seasonLegend span {
+  background: rgba(196, 129, 255, 0.16);
+  color: var(--lavender);
+}
+
+.mapDetails p,
+.strengthGrid p {
+  color: rgba(234, 229, 236, 0.66);
+}
+
+.gallerySection {
+  background:
+    radial-gradient(circle at 78% 10%, rgba(196, 129, 255, 0.12), transparent 28rem),
+    #080609;
+}
+
+.galleryCard {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.galleryCard::after {
+  background: linear-gradient(180deg, transparent 28%, rgba(11, 8, 12, 0.9));
+}
+
+.galleryCard img {
+  filter: grayscale(0.42) saturate(0.9) brightness(0.82);
+}
+
+.galleryCard:hover img {
+  filter: grayscale(0.05) saturate(1.08) brightness(0.92);
+}
+
+.strengthSection,
+.contactSection {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(196, 129, 255, 0.12), transparent 26rem),
+    var(--paper);
+}
+
+.strengthGrid span {
+  color: var(--violet);
+}
+
+.portraitBlack {
+  background:
+    radial-gradient(circle at 70% 20%, rgba(196, 129, 255, 0.36), transparent 34%),
+    linear-gradient(145deg, #0b080c, #17101f);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portraitBlack::before {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.portraitBlack span {
+  color: var(--violet);
+}
+
 .projectPage {
   background: #03070e;
   color: white;
@@ -1622,6 +1941,17 @@ img {
   to {
     transform: translate3d(0, -14px, 0);
     opacity: 0.82;
+  }
+}
+
+@keyframes robotFloat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-2deg);
+  }
+
+  50% {
+    transform: translate(-50%, calc(-50% - 18px)) rotate(2deg);
   }
 }
 

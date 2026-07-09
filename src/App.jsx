@@ -12,7 +12,9 @@ function Header() {
       </a>
       <nav aria-label={header.navAriaLabel}>
         {header.nav.map((item) => (
-          <a href={item.href} key={item.href}>{item.label}</a>
+          <a href={item.href} key={item.href}>
+            <span className="navRoll" data-copy={item.label}>{item.label}</span>
+          </a>
         ))}
       </nav>
       <div className="headerTools">
@@ -20,6 +22,32 @@ function Header() {
         <a className="emailButton" href={`mailto:${header.email}`}>{header.email}</a>
       </div>
     </header>
+  );
+}
+
+function RobotHeroLayer() {
+  return (
+    <div className="robotHeroLayer" aria-hidden="true">
+      <div className="robotGrid" />
+      <div className="robotAura" />
+      <div className="robotFigure">
+        <span className="robotAntenna" />
+        <span className="robotHead">
+          <i />
+          <i />
+        </span>
+        <span className="robotNeck" />
+        <span className="robotBody">
+          <b />
+          <b />
+          <b />
+        </span>
+      </div>
+      <span className="robotOrb robotOrbOne" />
+      <span className="robotOrb robotOrbTwo" />
+      <span className="robotSignal robotSignalOne" />
+      <span className="robotSignal robotSignalTwo" />
+    </div>
   );
 }
 
@@ -213,6 +241,7 @@ function Hero() {
 
   return (
     <section className="hero" id="top">
+      <RobotHeroLayer />
       <div className="heroSpace" aria-hidden="true">
         <span className="orbit orbitOne" />
         <span className="orbit orbitTwo" />
