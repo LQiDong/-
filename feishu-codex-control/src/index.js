@@ -10,14 +10,16 @@ const allowedIds = new Set(
     .map((item) => item.trim())
     .filter(Boolean)
 );
+const discoveryMode = String(process.env.FEISHU_DISCOVERY_MODE || "false").toLowerCase() === "true";
 
 if (!appId || !appSecret) {
   console.error("Missing FEISHU_APP_ID or FEISHU_APP_SECRET. Copy .env.example to .env first.");
   process.exit(1);
 }
 
-if (allowedIds.size === 0) {
+if (allowedIds.size === 0 && !discoveryMode) {
   console.error("Missing FEISHU_ALLOWED_IDS. Refusing to start without an operator allowlist.");
+  console.error("To discover your sender id safely, set FEISHU_DISCOVERY_MODE=true temporarily.");
   process.exit(1);
 }
 
@@ -83,6 +85,17 @@ async function handleIncomingMessage(data) {
   if (messageId && seenMessageIds.has(messageId)) return;
   if (messageId) seenMessageIds.add(messageId);
   if (seenMessageIds.size > 500) seenMessageIds.clear();
+
+  if (discoveryMode) {
+    const ids = [
+      `open_id=${senderId.open_id || ""}`,
+      `user_id=${senderId.user_id || ""}`,
+      `union_id=${senderId.union_id || ""}`
+    ].join("\n");
+    await replyText(chatId, `发现模式：不会执行任何控制命令。\n请把其中一个 ID 填入 FEISHU_ALLOWED_IDS 后关闭发现模式。\n\n${ids}`);
+    console.log("Discovery sender ids:\n" + ids);
+    return;
+  }
 
   if (!senderAllowed(senderId)) {
     await replyText(chatId, "拒绝：你不在这台电脑的 Feishu 控制白名单中。");
