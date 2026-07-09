@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redoyanul Haque Portfolio Design Preview</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b080c;
+      --text: #eae5ec;
+      --muted: #adacac;
+      --lavender: #c2a4ff;
+      --violet: #c481ff;
+      --hot: #fb8dff;
+      --deep: #aa42ff;
+      --surface: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.1);
+      --strong-border: rgba(255, 255, 255, 0.18);
+      --font: Geist, Inter, "Noto Sans SC", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 16% 12%, rgba(196, 129, 255, 0.18), transparent 26rem),
+        radial-gradient(circle at 78% 4%, rgba(251, 141, 255, 0.1), transparent 24rem),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .shell { margin: 0 auto; max-width: 1440px; padding: 34px clamp(20px, 5vw, 74px) 70px; }
+
+    .topbar {
+      align-items: center;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      margin-bottom: 70px;
+    }
+
+    .brand { font-size: 18px; font-weight: 700; letter-spacing: 0.2px; }
+    .email { color: var(--text); font-weight: 500; justify-self: center; letter-spacing: 0.8px; }
+    .nav { display: flex; gap: 24px; font-weight: 600; letter-spacing: 0.8px; }
+    .nav span { display: inline-block; height: 24px; overflow: hidden; position: relative; }
+    .nav span::after { content: attr(data-copy); display: block; color: var(--lavender); transform: translateY(8px); transition: transform 240ms ease; }
+    .nav a:hover span::after { transform: translateY(-24px); }
+
+    .hero {
+      display: grid;
+      gap: 36px;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.76fr);
+      min-height: 520px;
+      place-items: center;
+    }
+
+    .heroCopy { justify-self: start; }
+    .eyebrow { color: var(--lavender); font-size: clamp(20px, 2vw, 25px); font-weight: 300; margin: 0 0 12px; }
+    h1 { font-size: clamp(46px, 8vw, 116px); letter-spacing: 0; line-height: 0.86; margin: 0; text-transform: uppercase; }
+    .role { color: var(--violet); font-size: clamp(42px, 6vw, 86px); font-weight: 600; letter-spacing: 2px; line-height: 0.9; margin-top: 20px; }
+    .chars span { display: inline-block; animation: rise 900ms ease both; animation-delay: calc(var(--i) * 35ms); }
+
+    .motionCard {
+      background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+      border: 1px solid var(--strong-border);
+      border-radius: 18px;
+      min-height: 420px;
+      overflow: hidden;
+      padding: 28px;
+      position: relative;
+      transform: rotate(-3deg);
+    }
+
+    .robotLayer {
+      aspect-ratio: 1.2;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(196, 129, 255, 0.28), transparent 22%),
+        radial-gradient(circle at 52% 58%, rgba(234, 229, 236, 0.18), transparent 20%),
+        linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012));
+      border: 1px solid rgba(196, 129, 255, 0.22);
+      border-radius: 24px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .robotLayer::before {
+      background:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 32px 32px;
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+
+    .robotHead,
+    .robotBody,
+    .robotGlow {
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+
+    .robotGlow {
+      background: radial-gradient(circle, rgba(196,129,255,.42), transparent 62%);
+      border-radius: 50%;
+      height: 64%;
+      top: 16%;
+      width: 64%;
+    }
+
+    .robotHead {
+      background: linear-gradient(145deg, #eae5ec, #8b7cab);
+      border-radius: 28px;
+      height: 24%;
+      top: 22%;
+      width: 36%;
+    }
+
+    .robotHead::before,
+    .robotHead::after {
+      background: #0b080c;
+      border-radius: 50%;
+      content: "";
+      height: 12px;
+      position: absolute;
+      top: 44%;
+      width: 12px;
+    }
+
+    .robotHead::before { left: 28%; }
+    .robotHead::after { right: 28%; }
+
+    .robotBody {
+      background: linear-gradient(160deg, rgba(234,229,236,.24), rgba(196,129,255,.08));
+      border: 1px solid rgba(234,229,236,.28);
+      border-radius: 30px 30px 42px 42px;
+      height: 34%;
+      top: 48%;
+      width: 48%;
+    }
+
+    .robotCaption {
+      bottom: 20px;
+      color: rgba(234,229,236,.72);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px;
+      left: 24px;
+      letter-spacing: .14em;
+      position: absolute;
+      text-transform: uppercase;
+    }
+
+    .motionCard::before {
+      background: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      content: "";
+      inset: 0;
+      opacity: 0.55;
+      position: absolute;
+    }
+
+    .motionCard strong { color: var(--lavender); display: block; font-size: 18px; letter-spacing: .18em; margin-bottom: 120px; position: relative; text-transform: uppercase; }
+    .motionCard h2 { font-size: clamp(34px, 4vw, 58px); line-height: 1; margin: 0; position: relative; }
+    .motionCard p { color: rgba(234,229,236,.72); font-size: 18px; max-width: 480px; position: relative; }
+
+    .grid { display: grid; gap: 22px; grid-template-columns: 0.92fr 1.08fr; margin-top: 74px; }
+    .panel {
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+    }
+    .panel h2 { font-size: 28px; margin: 0 0 16px; }
+    .panel p { color: rgba(234,229,236,.72); margin: 0; }
+
+    .palette { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .swatch { border: 1px solid var(--border); border-radius: 12px; min-height: 118px; overflow: hidden; }
+    .swatch div { height: 64px; }
+    .swatch span { color: var(--muted); display: block; font-size: 12px; padding: 10px; }
+
+    .typeScale { display: grid; gap: 14px; }
+    .typeRow { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+    .typeRow small { color: var(--lavender); display: block; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin-bottom: 6px; }
+    .typeHero { font-size: clamp(34px, 5vw, 64px); font-weight: 600; letter-spacing: 2px; line-height: 0.95; }
+    .typeBody { font-size: 23px; font-weight: 600; letter-spacing: 0.5px; line-height: 1.2; }
+
+    .components { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 22px; }
+    .techCard {
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: grid;
+      height: 86px;
+      justify-items: center;
+      padding: 8px;
+      transition: .3s;
+    }
+    .techCard:hover { border-color: rgba(196,129,255,.55); color: var(--violet); transform: translateY(-4px); }
+    .cta { border: 1px solid var(--strong-border); border-radius: 999px; display: inline-flex; font-weight: 500; margin-top: 14px; padding: 15px 35px; }
+    .cta:hover { color: var(--violet); }
+
+    .dos { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
+    ul { margin: 0; padding-left: 20px; color: rgba(234,229,236,.75); }
+    li + li { margin-top: 8px; }
+
+    .source {
+      background: #080609;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: rgba(234,229,236,.78);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 74px;
+      max-height: 460px;
+      overflow: auto;
+      padding: 22px;
+      white-space: pre-wrap;
+    }
+
+    @keyframes rise { from { filter: blur(8px); opacity: 0; transform: translateY(26px); } to { filter: blur(0); opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 880px) {
+      .topbar { grid-template-columns: auto 1fr; margin-bottom: 42px; }
+      .email { display: none; }
+      .nav { font-size: 11px; gap: 12px; justify-self: end; }
+      .hero, .grid, .dos { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .motionCard { min-height: 320px; transform: rotate(-1.5deg); }
+      .palette, .components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="https://red1-for-hek.vercel.app/#">RH</a>
+      <a class="email" href="mailto:redoyanul1234@gmail.com">redoyanul1234@gmail.com</a>
+      <nav class="nav" aria-label="Preview sections">
+        <a href="#palette"><span data-copy="ABOUT">ABOUT</span></a>
+        <a href="#components"><span data-copy="WORK">WORK</span></a>
+        <a href="#source"><span data-copy="SOURCE">SOURCE</span></a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="heroCopy">
+        <p class="eyebrow">Hello! I'm</p>
+        <h1 class="chars" aria-label="Redoyanul Haque">
+          <span style="--i:1">R</span><span style="--i:2">E</span><span style="--i:3">D</span><span style="--i:4">O</span><span style="--i:5">Y</span><span style="--i:6">A</span><span style="--i:7">N</span><span style="--i:8">U</span><span style="--i:9">L</span><br>
+          <span style="--i:10">H</span><span style="--i:11">A</span><span style="--i:12">Q</span><span style="--i:13">U</span><span style="--i:14">E</span>
+        </h1>
+        <div class="role">AI Engineer</div>
+      </div>
+      <div class="motionCard">
+        <div class="robotLayer" aria-label="Abstracted WebGL robot hero layer">
+          <div class="robotGlow"></div>
+          <div class="robotHead"></div>
+          <div class="robotBody"></div>
+          <span class="robotCaption">WebGL Robot Canvas · 1254×564 observed</span>
+        </div>
+        <strong>Design DNA</strong>
+        <h2>Dark, kinetic, violet-coded portfolio language.</h2>
+        <p>A full-viewport robot/WebGL canvas introduces the AI identity before the page moves into typography-led portfolio sections.</p>
+      </div>
+    </section>
+
+    <section class="grid" id="palette">
+      <article class="panel">
+        <h2>Palette</h2>
+        <div class="palette">
+          <div class="swatch"><div style="background:#0b080c"></div><span>Void Black<br>#0B080C</span></div>
+          <div class="swatch"><div style="background:#eae5ec"></div><span>Lavender White<br>#EAE5EC</span></div>
+          <div class="swatch"><div style="background:#c2a4ff"></div><span>Intro Lavender<br>#C2A4FF</span></div>
+          <div class="swatch"><div style="background:#c481ff"></div><span>Electric Violet<br>#C481FF</span></div>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>Typography</h2>
+        <div class="typeScale">
+          <div class="typeRow"><small>Hero Role / 55px / 600 / 2px tracking</small><div class="typeHero">AI Engineer</div></div>
+          <div class="typeRow"><small>About Body / 23.8px / 600 / 0.5px tracking</small><div class="typeBody">Code is poetry, AI is the canvas.</div></div>
+          <div class="typeRow"><small>Navigation / 16px / 600 / duplicate hover labels</small><div>ABOUT ABOUT · WORK WORK · CONTACT CONTACT</div></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel" id="components" style="margin-top:22px">
+      <h2>Components</h2>
+      <p>Observed components rely on dark transparency, tight borders, text motion, and compact technical chips.</p>
+      <div class="components">
+        <div class="techCard">Python</div>
+        <div class="techCard">React</div>
+        <div class="techCard">FastAPI</div>
+      </div>
+      <a class="cta" href="https://red1-for-hek.vercel.app/#work">See All Works →</a>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Do</h2>
+        <ul>
+          <li>Use black-purple base surfaces.</li>
+          <li>Keep motion crisp and typography-led.</li>
+          <li>Use faint translucent cards with 10px radius.</li>
+          <li>Reserve violet for role text and active cues.</li>
+        </ul>
+      </article>
+      <article class="panel">
+        <h2>Don't</h2>
+        <ul>
+          <li>Do not introduce bright SaaS white panels.</li>
+          <li>Do not overuse unrelated accent colors.</li>
+          <li>Do not make navigation corporate or static.</li>
+          <li>Do not use heavy shadows as the main depth system.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="source" id="source"># DESIGN.md source
+
+See sibling file: red1-DESIGN.md
+
+Core prompt:
+Design a personal AI engineer portfolio in the style of Redoyanul Haque’s site: black-purple #0B080C background, Geist typography, lavender-white text, violet role accents, full-screen scroll sections, split-character text animation, compact animated nav, low-opacity glass tech chips, and image-led work previews. Keep the UI cinematic, technical, and motion-first.</section>
+  </main>
+</body>
+</html>

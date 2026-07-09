@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="title desc">
+  <title id="title">AI content workflow</title>
+  <desc id="desc">Abstract content production pipeline with human review and AI assistance.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#15141d"/>
+      <stop offset="0.55" stop-color="#071013"/>
+      <stop offset="1" stop-color="#162116"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="34%" cy="38%" r="55%">
+      <stop offset="0" stop-color="#ff6b9c" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ff6b9c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="560" fill="url(#bg)"/>
+  <rect width="900" height="560" fill="url(#glow)"/>
+  <g opacity="0.13" stroke="#d8fff7">
+    <path d="M0 140h900M0 280h900M0 420h900"/>
+    <path d="M150 0v560M300 0v560M450 0v560M600 0v560M750 0v560"/>
+  </g>
+  <g fill="none" stroke-linecap="round">
+    <path d="M138 286h620" stroke="#3df0dc" stroke-width="5" opacity="0.78"/>
+    <path d="M740 266l38 20-38 20" stroke="#3df0dc" stroke-width="5" opacity="0.78"/>
+  </g>
+  <g fill="#ffffff" opacity="0.12" stroke="#d8fff7" stroke-opacity="0.28">
+    <rect x="82" y="182" width="154" height="208" rx="20"/>
+    <rect x="284" y="142" width="172" height="288" rx="22"/>
+    <rect x="504" y="174" width="170" height="224" rx="20"/>
+    <rect x="718" y="150" width="110" height="272" rx="22"/>
+  </g>
+  <g fill="#eef8f6" opacity="0.3">
+    <rect x="116" y="228" width="84" height="10" rx="5"/>
+    <rect x="116" y="266" width="70" height="8" rx="4"/>
+    <rect x="324" y="196" width="92" height="10" rx="5"/>
+    <rect x="324" y="236" width="76" height="8" rx="4"/>
+    <rect x="324" y="274" width="100" height="8" rx="4"/>
+    <rect x="548" y="226" width="84" height="10" rx="5"/>
+    <rect x="548" y="264" width="70" height="8" rx="4"/>
+    <rect x="746" y="210" width="54" height="10" rx="5"/>
+    <rect x="746" y="248" width="42" height="8" rx="4"/>
+  </g>
+  <g>
+    <circle cx="159" cy="286" r="18" fill="#ffd166"/>
+    <circle cx="370" cy="286" r="22" fill="#3df0dc"/>
+    <circle cx="589" cy="286" r="18" fill="#9dff72"/>
+    <circle cx="774" cy="286" r="20" fill="#ff6b9c"/>
+  </g>
+  <path d="M312 106c130-58 246-58 348 0" fill="none" stroke="#ffd166" stroke-width="3" opacity="0.42"/>
+  <path d="M210 450c170 58 326 62 512 0" fill="none" stroke="#9dff72" stroke-width="3" opacity="0.36"/>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1030" role="img" aria-labelledby="title desc">
+  <title id="title">Premium AI product workspace visual</title>
+  <desc id="desc">Abstract glass interface panels, semantic nodes, and editorial AI product atmosphere.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0e2226"/>
+      <stop offset="0.5" stop-color="#081316"/>
+      <stop offset="1" stop-color="#10201a"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#3df0dc" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3df0dc" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="24"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="1030" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="1030" fill="url(#glow)"/>
+  <g opacity="0.18" stroke="#d8fff7" stroke-width="1">
+    <path d="M0 190h1200M0 350h1200M0 510h1200M0 670h1200M0 830h1200"/>
+    <path d="M160 0v1030M320 0v1030M480 0v1030M640 0v1030M800 0v1030M960 0v1030"/>
+  </g>
+  <g filter="url(#blur)" opacity="0.9">
+    <circle cx="250" cy="210" r="120" fill="#3df0dc" opacity="0.22"/>
+    <circle cx="930" cy="230" r="150" fill="#9dff72" opacity="0.14"/>
+    <circle cx="710" cy="760" r="180" fill="#ff6b9c" opacity="0.11"/>
+  </g>
+  <g fill="url(#glass)" stroke="#d8fff7" stroke-opacity="0.24">
+    <rect x="126" y="150" width="410" height="250" rx="26"/>
+    <rect x="640" y="114" width="390" height="310" rx="26"/>
+    <rect x="260" y="520" width="650" height="310" rx="30"/>
+  </g>
+  <g stroke-linecap="round">
+    <path d="M248 278C410 178 618 200 770 310s230 94 292 8" fill="none" stroke="#3df0dc" stroke-width="3" opacity="0.75"/>
+    <path d="M350 650c120-120 250-128 390-20s230 100 320-20" fill="none" stroke="#9dff72" stroke-width="3" opacity="0.55"/>
+    <path d="M380 305l210 90 238-80 120 110" fill="none" stroke="#ffd166" stroke-width="2" opacity="0.45"/>
+  </g>
+  <g fill="#eef8f6">
+    <circle cx="248" cy="278" r="10"/>
+    <circle cx="590" cy="395" r="8"/>
+    <circle cx="828" cy="315" r="12"/>
+    <circle cx="948" cy="425" r="9"/>
+    <circle cx="350" cy="650" r="9"/>
+    <circle cx="740" cy="630" r="12"/>
+    <circle cx="1060" cy="610" r="8"/>
+  </g>
+  <g opacity="0.78">
+    <rect x="178" y="210" width="230" height="12" rx="6" fill="#3df0dc"/>
+    <rect x="178" y="246" width="300" height="8" rx="4" fill="#eef8f6" opacity="0.35"/>
+    <rect x="178" y="276" width="260" height="8" rx="4" fill="#eef8f6" opacity="0.22"/>
+    <rect x="706" y="178" width="160" height="12" rx="6" fill="#9dff72"/>
+    <rect x="706" y="220" width="250" height="8" rx="4" fill="#eef8f6" opacity="0.32"/>
+    <rect x="706" y="252" width="200" height="8" rx="4" fill="#eef8f6" opacity="0.2"/>
+    <rect x="332" y="610" width="250" height="14" rx="7" fill="#ffd166"/>
+    <rect x="332" y="660" width="460" height="9" rx="4" fill="#eef8f6" opacity="0.3"/>
+    <rect x="332" y="700" width="380" height="9" rx="4" fill="#eef8f6" opacity="0.2"/>
+  </g>
+</svg>

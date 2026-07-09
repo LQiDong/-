@@ -1,0 +1,7 @@
+interface:
+  display_name: "BLEACH 海报提示词"
+  short_description: "生成《死神》群像剪影海报、文字系统与版式提示词模板"
+  default_prompt: "Use $bleach-poster-prompt to turn my Bleach poster idea into a polished silhouette-filled poster prompt."
+
+policy:
+  allow_implicit_invocation: true

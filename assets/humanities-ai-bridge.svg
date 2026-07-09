@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" role="img" aria-labelledby="title desc">
+  <title id="title">Humanities to AI product bridge</title>
+  <desc id="desc">Abstract editorial papers transition into connected AI product signals.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#10151c"/>
+      <stop offset="0.48" stop-color="#0a1b1f"/>
+      <stop offset="1" stop-color="#122017"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" x2="1">
+      <stop offset="0" stop-color="#f7f2e8" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#d8fff7" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="light" cx="62%" cy="48%" r="50%">
+      <stop offset="0" stop-color="#3df0dc" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#3df0dc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="500" fill="url(#bg)"/>
+  <rect width="1600" height="500" fill="url(#light)"/>
+  <g opacity="0.13" stroke="#d8fff7">
+    <path d="M0 120h1600M0 250h1600M0 380h1600"/>
+    <path d="M180 0v500M420 0v500M660 0v500M900 0v500M1140 0v500M1380 0v500"/>
+  </g>
+  <g transform="translate(90 88) rotate(-7)">
+    <rect width="260" height="320" rx="18" fill="url(#paper)" opacity="0.82"/>
+    <rect x="38" y="64" width="145" height="12" rx="6" fill="#071013" opacity="0.26"/>
+    <rect x="38" y="110" width="188" height="8" rx="4" fill="#071013" opacity="0.19"/>
+    <rect x="38" y="142" width="160" height="8" rx="4" fill="#071013" opacity="0.16"/>
+  </g>
+  <g transform="translate(300 128) rotate(5)">
+    <rect width="270" height="260" rx="18" fill="#ffffff" opacity="0.16" stroke="#d8fff7" stroke-opacity="0.28"/>
+    <path d="M44 72h170M44 112h120M44 152h188M44 192h138" stroke="#d8fff7" stroke-opacity="0.42" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <path d="M560 250C690 110 820 95 960 205s258 128 420 0" fill="none" stroke="#3df0dc" stroke-width="4" opacity="0.75"/>
+  <path d="M610 318c170-70 310-50 420 44s220 92 350 10" fill="none" stroke="#9dff72" stroke-width="3" opacity="0.55"/>
+  <g fill="#eef8f6">
+    <circle cx="600" cy="218" r="11"/>
+    <circle cx="772" cy="150" r="8"/>
+    <circle cx="950" cy="202" r="13"/>
+    <circle cx="1125" cy="292" r="8"/>
+    <circle cx="1360" cy="204" r="12"/>
+  </g>
+  <g fill="none" stroke="#ffd166" stroke-opacity="0.45">
+    <rect x="1010" y="110" width="270" height="130" rx="22"/>
+    <rect x="1138" y="284" width="320" height="105" rx="22"/>
+  </g>
+  <g fill="#eef8f6" opacity="0.34">
+    <rect x="1050" y="150" width="150" height="10" rx="5"/>
+    <rect x="1050" y="184" width="190" height="8" rx="4"/>
+    <rect x="1178" y="322" width="210" height="10" rx="5"/>
+    <rect x="1178" y="354" width="154" height="8" rx="4"/>
+  </g>
+</svg>
