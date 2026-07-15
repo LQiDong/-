@@ -19,6 +19,873 @@
   --ghost: rgba(255, 255, 255, 0.03);
 }
 
+/* Circular project gallery */
+.seasonFrame {
+  min-height: 760px;
+}
+
+.mapContent {
+  height: 760px;
+}
+
+.cardOrbitFrame {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(196, 129, 255, 0.24), transparent 22rem),
+    radial-gradient(circle at 24% 70%, rgba(56, 189, 248, 0.13), transparent 24rem),
+    radial-gradient(circle at 78% 72%, rgba(244, 114, 182, 0.13), transparent 25rem),
+    linear-gradient(180deg, #0a070d 0%, #171020 48%, #09070b 100%);
+  perspective: 1200px;
+}
+
+.cardOrbitFrame::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 76%, transparent 100%);
+  opacity: 0.68;
+}
+
+.cardOrbitFrame::after {
+  background:
+    radial-gradient(ellipse at 50% 70%, transparent 0 34%, rgba(11, 8, 12, 0.46) 72%),
+    linear-gradient(180deg, rgba(11, 8, 12, 0.12), rgba(11, 8, 12, 0.58));
+}
+
+.gradientField {
+  background:
+    radial-gradient(circle at 50% 54%, rgba(196, 129, 255, 0.24), transparent 25rem),
+    radial-gradient(circle at 22% 66%, rgba(56, 189, 248, 0.12), transparent 21rem),
+    radial-gradient(circle at 78% 62%, rgba(244, 114, 182, 0.11), transparent 22rem);
+  filter: blur(18px);
+  opacity: 0.9;
+}
+
+.orbitRail {
+  border-color: rgba(196, 129, 255, 0.24);
+  height: clamp(220px, 26vw, 380px);
+  top: 70%;
+  transform: translate(-50%, -50%) rotateX(72deg);
+  width: min(88vw, 1180px);
+}
+
+.orbitRail::before,
+.orbitRail::after {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.rotatingCards {
+  height: 100%;
+  inset: 0;
+  transform: none;
+  transition: none;
+  width: 100%;
+}
+
+.cardOrbitFrame .orbitCard {
+  height: clamp(300px, 31vw, 430px);
+  left: 50%;
+  min-height: 0;
+  opacity: var(--gallery-opacity);
+  top: 67%;
+  transform:
+    translate(-50%, -50%)
+    translateX(var(--gallery-x))
+    translateY(var(--gallery-y))
+    rotateZ(var(--gallery-tilt))
+    rotateY(var(--gallery-rotate-y))
+    scale(var(--gallery-scale));
+  transform-origin: center bottom;
+  transition:
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    opacity 240ms ease,
+    transform 520ms cubic-bezier(0.2, 0.78, 0.18, 1);
+  width: clamp(220px, 23vw, 350px);
+  z-index: var(--gallery-z);
+}
+
+.cardOrbitFrame .orbitCard:hover,
+.cardOrbitFrame .orbitCard.hovered,
+.cardOrbitFrame .orbitCard.active,
+.cardOrbitFrame .orbitCard:focus-visible {
+  border-color: rgba(196, 129, 255, 0.58);
+  box-shadow:
+    0 34px 120px rgba(196, 129, 255, 0.26),
+    0 18px 58px rgba(0, 0, 0, 0.44);
+  outline: none;
+  transform:
+    translate(-50%, -50%)
+    translateX(var(--gallery-x))
+    translateY(var(--gallery-y))
+    rotateZ(var(--gallery-tilt))
+    rotateY(var(--gallery-rotate-y))
+    scale(var(--gallery-scale));
+}
+
+.cardOrbitFrame .orbitCard.active {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.cardOrbitFrame .orbitCard > .border-glow-inner {
+  align-content: end;
+}
+
+.cardOrbitFrame .orbitCard img {
+  filter: grayscale(0.36) saturate(0.95) contrast(1.05) brightness(0.82);
+}
+
+.cardOrbitFrame .orbitCard.active img,
+.cardOrbitFrame .orbitCard:hover img,
+.cardOrbitFrame .orbitCard.hovered img,
+.cardOrbitFrame .orbitCard:focus-visible img {
+  filter: grayscale(0.04) saturate(1.12) contrast(1.05) brightness(0.94);
+  transform: scale(1.06);
+}
+
+.seasonPreview {
+  left: 50%;
+  max-width: 460px;
+  padding: 28px 30px;
+  pointer-events: auto;
+  top: 72px;
+  transform: translateX(-50%);
+  width: min(42vw, 460px);
+}
+
+.seasonPreview.isVisible {
+  transform: translateX(-50%);
+}
+
+.seasonPreview h3 {
+  font-size: clamp(28px, 2.4vw, 44px);
+}
+
+.seasonLegend {
+  bottom: 28px;
+  z-index: 6;
+}
+
+@media (max-width: 980px) {
+  .seasonFrame {
+    min-height: 720px;
+  }
+
+  .mapContent {
+    height: 720px;
+  }
+
+  .seasonPreview {
+    width: min(68vw, 460px);
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(270px, 39vw, 380px);
+    width: clamp(200px, 31vw, 310px);
+  }
+}
+
+/* Cinematic portfolio hero: generated artwork with restrained editorial copy. */
+.hero {
+  align-items: stretch;
+  background: #07101e;
+  isolation: isolate;
+  min-height: 100dvh;
+  padding: 0 clamp(22px, 5vw, 86px);
+}
+
+.hero::before {
+  background:
+    linear-gradient(90deg, rgba(4, 10, 19, 0.88) 0%, rgba(4, 10, 19, 0.5) 32%, transparent 58%),
+    linear-gradient(180deg, rgba(2, 7, 14, 0.3), transparent 36%, rgba(2, 7, 14, 0.74));
+  inset: 0;
+  mask-image: none;
+  opacity: 1;
+  z-index: 2;
+}
+
+.hero::after {
+  background: linear-gradient(180deg, transparent 72%, #080609 100%);
+  height: 38%;
+  z-index: 3;
+}
+
+.cinematicHeroBackdrop {
+  animation: heroBreath 14s ease-in-out infinite alternate;
+  background-image: url("../assets/hero-celestial-angel.png");
+  background-position: 54% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(0.92) contrast(1.04);
+  inset: -2%;
+  opacity: 1;
+  transform-origin: 62% 48%;
+  z-index: 1;
+}
+
+.heroNarrative {
+  align-self: center;
+  display: grid;
+  gap: 24px;
+  margin-top: 38px;
+  max-width: min(690px, 46vw);
+  position: relative;
+  z-index: 5;
+}
+
+.heroNarrative .heroIntro {
+  color: rgba(210, 227, 246, 0.72);
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  margin: 0;
+  text-align: left;
+}
+
+.heroNarrative h1 {
+  color: #f3f7fb;
+  font-size: clamp(52px, 6.25vw, 112px);
+  font-weight: 620;
+  letter-spacing: -0.065em;
+  line-height: 0.94;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.heroStatement {
+  color: rgba(225, 234, 244, 0.72);
+  font-size: clamp(16px, 1.25vw, 21px);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 32em;
+}
+
+.heroNarrative .heroActions {
+  bottom: auto;
+  justify-content: flex-start;
+  left: auto;
+  margin-top: 4px;
+  position: relative;
+  right: auto;
+}
+
+.heroNarrative .heroActions a {
+  backdrop-filter: blur(14px);
+  border-color: rgba(225, 237, 249, 0.26);
+  min-width: 150px;
+  transition: background-color 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.heroNarrative .heroActions a:first-child {
+  background: #e9f0f7;
+  color: #08111e;
+}
+
+.heroNarrative .heroActions a:last-child {
+  background: rgba(7, 16, 30, 0.34);
+  color: #edf4fb;
+}
+
+.heroNarrative .heroActions a:hover {
+  border-color: rgba(255, 255, 255, 0.58);
+  transform: translateY(-2px);
+}
+
+.heroCoordinate {
+  bottom: 40px;
+  color: rgba(219, 232, 246, 0.5);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  margin: 0;
+  position: absolute;
+  right: clamp(22px, 5vw, 86px);
+  z-index: 5;
+}
+
+@keyframes heroBreath {
+  from { transform: scale(1.015) translate3d(0, 0, 0); }
+  to { transform: scale(1.05) translate3d(-0.4%, -0.25%, 0); }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 100dvh;
+    padding-inline: 20px;
+  }
+
+  .cinematicHeroBackdrop {
+    background-position: 63% center;
+    inset: 0;
+  }
+
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(3, 9, 17, 0.42), rgba(3, 9, 17, 0.14) 38%, rgba(3, 9, 17, 0.88) 82%),
+      linear-gradient(90deg, rgba(3, 9, 17, 0.56), transparent 78%);
+  }
+
+  .heroNarrative {
+    align-self: end;
+    gap: 18px;
+    margin: 0 0 94px;
+    max-width: 100%;
+  }
+
+  .heroNarrative h1 {
+    font-size: clamp(46px, 13vw, 68px);
+    line-height: 0.98;
+  }
+
+  .heroStatement {
+    font-size: 15px;
+    max-width: 28em;
+  }
+
+  .heroNarrative .heroActions {
+    gap: 10px;
+  }
+
+  .heroNarrative .heroActions a {
+    height: 50px;
+    min-width: 0;
+    padding-inline: 20px;
+  }
+
+  .heroCoordinate {
+    bottom: 24px;
+    right: 20px;
+  }
+}
+
+/* Contact composition and responsive layout refinement */
+.contactSection {
+  min-height: 100dvh;
+}
+
+.contactGrid {
+  align-items: center;
+  gap: clamp(48px, 7vw, 120px);
+  grid-template-columns: minmax(420px, 0.88fr) minmax(0, 1.12fr);
+}
+
+.contactImage {
+  min-height: 0;
+  overflow: visible;
+  padding: clamp(18px, 2.2vw, 34px) 0 0 clamp(18px, 2.2vw, 34px);
+}
+
+.portraitBlack {
+  aspect-ratio: 1.16 / 1;
+  display: block;
+  inset: auto;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.portraitBlack::before {
+  background: linear-gradient(135deg, rgba(185, 149, 255, 0.22), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(185, 149, 255, 0.24);
+  border-radius: inherit;
+  inset: -18px 18px 18px -18px;
+  z-index: -2;
+}
+
+.portraitBlack::after {
+  background: linear-gradient(180deg, rgba(6, 5, 9, 0.02) 52%, rgba(6, 5, 9, 0.38));
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.contactSketch {
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 34%;
+  transform: scale(1.08);
+  width: 100%;
+}
+
+.portraitBlack span {
+  background: rgba(7, 5, 10, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  left: clamp(18px, 3vw, 34px);
+  padding: 9px 13px;
+  position: absolute;
+  top: clamp(18px, 3vw, 34px);
+  z-index: 2;
+}
+
+.contactCopy {
+  min-width: 0;
+}
+
+.contactCopy h2 {
+  font-size: clamp(48px, 5.4vw, 92px);
+  line-height: 0.98;
+  max-width: 780px;
+  text-wrap: balance;
+}
+
+.contactCopy > p:not(.sectionKicker) {
+  font-size: clamp(16px, 1.4vw, 21px);
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+.contactLinks {
+  align-items: stretch;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  margin-top: clamp(30px, 4vw, 52px);
+}
+
+.contactLinks a,
+.contactLinks span {
+  align-items: center;
+  display: inline-flex;
+  min-height: 52px;
+  overflow-wrap: anywhere;
+  width: fit-content;
+}
+
+@media (max-width: 1180px) {
+  .contactGrid {
+    gap: 58px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contactImage {
+    margin-inline: auto;
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .contactCopy {
+    margin-inline: auto;
+    max-width: 860px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding-inline: clamp(18px, 5vw, 28px);
+  }
+
+  .contactSection {
+    min-height: auto;
+    padding-block: 76px;
+  }
+
+  .contactGrid {
+    gap: 42px;
+  }
+
+  .contactImage {
+    padding: 12px 0 0 12px;
+  }
+
+  .portraitBlack {
+    aspect-ratio: 1 / 1.02;
+    border-radius: 20px;
+  }
+
+  .contactSketch {
+    object-position: 50% 28%;
+    transform: scale(1.04);
+  }
+
+  .contactCopy h2 {
+    font-size: clamp(44px, 13vw, 66px);
+    line-height: 1.02;
+    margin-bottom: 24px;
+  }
+
+  .contactCopy > p:not(.sectionKicker) {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .contactLinks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contactLinks a,
+  .contactLinks span {
+    justify-content: flex-start;
+    padding: 14px 16px;
+    width: 100%;
+  }
+
+  .motionSection::before {
+    font-size: clamp(64px, 22vw, 118px);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    min-width: 0;
+  }
+
+  .contactSection {
+    padding-block: 64px;
+  }
+
+  .portraitBlack {
+    aspect-ratio: 0.92 / 1;
+  }
+
+  .portraitBlack span {
+    font-size: 12px;
+    left: 14px;
+    padding: 7px 10px;
+    top: 14px;
+  }
+
+  .contactCopy h2 {
+    font-size: clamp(40px, 14vw, 54px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematicHeroBackdrop {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .seasonFrame {
+    min-height: 680px;
+  }
+
+  .mapContent {
+    height: 680px;
+  }
+
+  .seasonPreview {
+    left: 50%;
+    max-width: none;
+    right: auto;
+    top: 32px;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+  }
+
+  .orbitRail {
+    top: 72%;
+    width: 760px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(240px, 66vw, 320px);
+    top: 66%;
+    width: clamp(170px, 58vw, 250px);
+  }
+
+  .seasonLegend {
+    bottom: 18px;
+    gap: 8px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .seasonLegend button {
+    font-size: 12px;
+    padding: 8px 12px 8px 8px;
+  }
+}
+
+/* Final project map layout override: clean stage with bottom circular gallery */
+.mapSection {
+  background:
+    radial-gradient(circle at 74% 14%, rgba(196, 129, 255, 0.08), transparent 28rem),
+    #080609;
+  padding-bottom: 72px;
+}
+
+.mapTitle {
+  margin-bottom: clamp(18px, 3vw, 34px);
+  max-width: 980px;
+}
+
+.mapTitle h2 {
+  font-size: clamp(62px, 8vw, 138px);
+  line-height: 0.86;
+}
+
+.seasonFrame {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin-inline: calc((100vw - min(1120px, calc(100vw - 40px))) / -2);
+  min-height: clamp(390px, 38vw, 560px);
+  overflow: hidden;
+}
+
+.seasonFrame::before,
+.seasonFrame::after {
+  display: none;
+}
+
+.mapContent {
+  height: clamp(390px, 38vw, 560px);
+  overflow: hidden;
+}
+
+.cardOrbitFrame {
+  background: transparent;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cardOrbitFrame::before,
+.cardOrbitFrame::after,
+.gradientField {
+  display: none;
+}
+
+.seasonPreview {
+  display: none;
+}
+
+.orbitRail {
+  border-color: rgba(196, 129, 255, 0.15);
+  height: clamp(150px, 17vw, 250px);
+  opacity: 0.62;
+  top: 70%;
+  width: min(108vw, 1420px);
+}
+
+.cardOrbitFrame .orbitCard {
+  height: clamp(230px, 25vw, 350px);
+  top: 52%;
+  width: clamp(170px, 18vw, 260px);
+}
+
+.seasonLegend {
+  bottom: 8px;
+  left: 50%;
+  max-width: min(88vw, 1040px);
+  right: auto;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .seasonFrame {
+    min-height: 500px;
+  }
+
+  .mapContent {
+    height: 500px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(220px, 34vw, 320px);
+    width: clamp(165px, 27vw, 240px);
+  }
+}
+
+@media (max-width: 760px) {
+  .mapTitle h2 {
+    font-size: clamp(48px, 15vw, 82px);
+  }
+
+  .seasonFrame {
+    margin-inline: -18px;
+    min-height: 540px;
+  }
+
+  .mapContent {
+    height: 540px;
+  }
+
+  .orbitRail {
+    top: 70%;
+    width: 760px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(210px, 58vw, 300px);
+    top: 52%;
+    width: clamp(155px, 46vw, 220px);
+  }
+
+  .seasonLegend {
+    bottom: 8px;
+  }
+}
+
+/* Project map layout: reference-style clean stage, no background image panel */
+.mapSection {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(196, 129, 255, 0.08), transparent 26rem),
+    #080609;
+  padding-bottom: 84px;
+}
+
+.mapTitle {
+  margin-bottom: clamp(18px, 3vw, 38px);
+  max-width: 940px;
+}
+
+.mapTitle h2 {
+  font-size: clamp(62px, 8vw, 138px);
+  line-height: 0.86;
+  max-width: 920px;
+}
+
+.seasonFrame {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin-inline: calc((100vw - min(1120px, calc(100vw - 40px))) / -2);
+  min-height: clamp(520px, 52vw, 720px);
+  overflow: hidden;
+}
+
+.seasonFrame::before,
+.seasonFrame::after {
+  display: none;
+}
+
+.mapContent {
+  height: clamp(520px, 52vw, 720px);
+  overflow: hidden;
+}
+
+.cardOrbitFrame {
+  background: transparent;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cardOrbitFrame::before,
+.cardOrbitFrame::after,
+.gradientField {
+  display: none;
+}
+
+.orbitRail {
+  border-color: rgba(196, 129, 255, 0.16);
+  height: clamp(160px, 18vw, 260px);
+  opacity: 0.66;
+  top: 78%;
+  width: min(104vw, 1380px);
+}
+
+.cardOrbitFrame .orbitCard {
+  height: clamp(230px, 26vw, 360px);
+  top: 72%;
+  width: clamp(170px, 18vw, 260px);
+}
+
+.seasonPreview {
+  background: rgba(12, 9, 15, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 26px 86px rgba(0, 0, 0, 0.36);
+  left: clamp(24px, 22vw, 430px);
+  max-width: 420px;
+  padding: 26px 28px;
+  top: 18px;
+  transform: none;
+  width: min(36vw, 420px);
+  z-index: 7;
+}
+
+.seasonPreview.isVisible {
+  transform: none;
+}
+
+.seasonPreview h3 {
+  font-size: clamp(26px, 2.1vw, 38px);
+  margin-bottom: 14px;
+}
+
+.seasonPreview p {
+  color: rgba(234, 229, 236, 0.66);
+  font-size: 16px;
+}
+
+.seasonLegend {
+  bottom: 18px;
+  justify-content: center;
+  left: 50%;
+  max-width: min(88vw, 1040px);
+  right: auto;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .seasonPreview {
+    left: 50%;
+    top: 18px;
+    transform: translateX(-50%);
+    width: min(72vw, 420px);
+  }
+
+  .seasonPreview.isVisible {
+    transform: translateX(-50%);
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(220px, 34vw, 320px);
+    width: clamp(165px, 27vw, 240px);
+  }
+}
+
+@media (max-width: 760px) {
+  .mapTitle h2 {
+    font-size: clamp(48px, 15vw, 82px);
+  }
+
+  .seasonFrame {
+    margin-inline: -18px;
+    min-height: 620px;
+  }
+
+  .mapContent {
+    height: 620px;
+  }
+
+  .seasonPreview {
+    left: 50%;
+    top: 18px;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+  }
+
+  .seasonPreview.isVisible {
+    transform: translateX(-50%);
+  }
+
+  .orbitRail {
+    top: 75%;
+    width: 760px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(210px, 58vw, 300px);
+    top: 69%;
+    width: clamp(155px, 46vw, 220px);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -39,6 +906,110 @@ body {
   font-family: Geist, Inter, "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
   letter-spacing: 0;
   overflow-x: hidden;
+}
+
+.openingCurtain {
+  align-items: center;
+  background: #0b080c;
+  display: grid;
+  inset: 0;
+  justify-items: center;
+  overflow: hidden;
+  position: fixed;
+  z-index: 999;
+}
+
+.openingPanel {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(196, 129, 255, 0.16), transparent 34rem),
+    linear-gradient(180deg, #0b080c, #160d1d);
+  inset: 0;
+  position: absolute;
+}
+
+.panelLeft {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+
+.panelRight {
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+
+.openingText {
+  color: var(--ink);
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  position: relative;
+  text-align: center;
+  z-index: 2;
+}
+
+.openingText span {
+  color: var(--lavender);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+}
+
+.openingText strong {
+  font-size: clamp(58px, 10vw, 170px);
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  line-height: 0.82;
+}
+
+.openingLine {
+  background: linear-gradient(90deg, transparent, var(--lavender), var(--hot), transparent);
+  height: 1px;
+  position: relative;
+  width: min(58vw, 760px);
+  z-index: 2;
+}
+
+.motionSection {
+  overflow: hidden;
+  position: relative;
+  --motion-title-x: -10%;
+  --motion-title-opacity: 0;
+}
+
+.motionSection::before {
+  color: rgba(196, 129, 255, calc(var(--motion-title-opacity) * 0.62));
+  content: attr(data-motion-title);
+  font-size: clamp(76px, 12vw, 210px);
+  font-weight: 900;
+  left: clamp(18px, 4vw, 76px);
+  letter-spacing: 0.08em;
+  line-height: 0.8;
+  pointer-events: none;
+  position: absolute;
+  text-transform: uppercase;
+  top: clamp(42px, 6vw, 118px);
+  transform: translateX(var(--motion-title-x));
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.motionSection > .container,
+.projectPageShell {
+  position: relative;
+  z-index: 1;
+}
+
+.motionTitle {
+  transform-origin: left center;
+  will-change: transform, clip-path, filter, opacity;
+}
+
+.motionCard,
+.motionCopy,
+.motionImage {
+  will-change: transform, filter, opacity;
+}
+
+.motionImage {
+  overflow: hidden;
 }
 
 a {
@@ -1087,7 +2058,7 @@ img {
   height: min(17vw, 230px);
   left: 50%;
   min-height: 210px;
-  overflow: hidden;
+  overflow: visible;
   padding: 0;
   position: absolute;
   top: 50%;
@@ -1098,7 +2069,14 @@ img {
   width: min(20vw, 280px);
 }
 
-.orbitCard::before {
+.orbitCard > .border-glow-inner {
+  border-radius: inherit;
+  display: grid;
+  height: 100%;
+  overflow: hidden;
+}
+
+.orbitShade {
   background: linear-gradient(180deg, transparent 18%, rgba(3, 7, 14, 0.2) 48%, rgba(3, 7, 14, 0.92));
   content: "";
   inset: 0;
@@ -1106,7 +2084,7 @@ img {
   z-index: 1;
 }
 
-.orbitCard::after {
+.orbitAccentLine {
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
   bottom: 0;
   content: "";
@@ -1349,11 +2327,18 @@ img {
 .galleryCard {
   border-radius: 12px;
   min-height: 560px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 
-.galleryCard::after {
+.galleryCard > .border-glow-inner {
+  border-radius: inherit;
+  display: block;
+  min-height: inherit;
+  overflow: hidden;
+}
+
+.galleryShade {
   background: linear-gradient(180deg, transparent 36%, rgba(0, 0, 0, 0.72));
   content: "";
   inset: 0;
@@ -1374,7 +2359,7 @@ img {
   transform: scale(1.035);
 }
 
-.galleryCard div {
+.galleryCardContent {
   bottom: 32px;
   left: 32px;
   position: absolute;
@@ -1535,7 +2520,7 @@ img {
   color: var(--ink);
 }
 
-.orbitCard::after {
+.orbitAccentLine {
   background: linear-gradient(90deg, transparent, var(--violet), transparent);
 }
 
@@ -1597,7 +2582,7 @@ img {
   border-radius: 16px;
 }
 
-.galleryCard::after {
+.galleryShade {
   background: linear-gradient(180deg, transparent 28%, rgba(11, 8, 12, 0.9));
 }
 
@@ -2223,5 +3208,1436 @@ img {
 
   .portraitBlack strong {
     font-size: 56px;
+  }
+}
+
+/* Circular project gallery overrides */
+.seasonFrame {
+  min-height: 760px;
+}
+
+.mapContent {
+  height: 760px;
+}
+
+.cardOrbitFrame {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(196, 129, 255, 0.24), transparent 22rem),
+    radial-gradient(circle at 24% 70%, rgba(56, 189, 248, 0.13), transparent 24rem),
+    radial-gradient(circle at 78% 72%, rgba(244, 114, 182, 0.13), transparent 25rem),
+    linear-gradient(180deg, #0a070d 0%, #171020 48%, #09070b 100%);
+  perspective: 1200px;
+}
+
+.cardOrbitFrame::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 76%, transparent 100%);
+  opacity: 0.68;
+}
+
+.cardOrbitFrame::after {
+  background:
+    radial-gradient(ellipse at 50% 70%, transparent 0 34%, rgba(11, 8, 12, 0.46) 72%),
+    linear-gradient(180deg, rgba(11, 8, 12, 0.12), rgba(11, 8, 12, 0.58));
+}
+
+.gradientField {
+  background:
+    radial-gradient(circle at 50% 54%, rgba(196, 129, 255, 0.24), transparent 25rem),
+    radial-gradient(circle at 22% 66%, rgba(56, 189, 248, 0.12), transparent 21rem),
+    radial-gradient(circle at 78% 62%, rgba(244, 114, 182, 0.11), transparent 22rem);
+  filter: blur(18px);
+  opacity: 0.9;
+}
+
+.orbitRail {
+  border-color: rgba(196, 129, 255, 0.24);
+  height: clamp(220px, 26vw, 380px);
+  top: 70%;
+  transform: translate(-50%, -50%) rotateX(72deg);
+  width: min(88vw, 1180px);
+}
+
+.orbitRail::before,
+.orbitRail::after {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.rotatingCards {
+  height: 100%;
+  inset: 0;
+  transform: none;
+  transition: none;
+  width: 100%;
+}
+
+.cardOrbitFrame .orbitCard {
+  height: clamp(300px, 31vw, 430px);
+  left: 50%;
+  min-height: 0;
+  opacity: var(--gallery-opacity);
+  top: 67%;
+  transform:
+    translate(-50%, -50%)
+    translateX(var(--gallery-x))
+    translateY(var(--gallery-y))
+    rotateZ(var(--gallery-tilt))
+    rotateY(var(--gallery-rotate-y))
+    scale(var(--gallery-scale));
+  transform-origin: center bottom;
+  transition:
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    opacity 240ms ease,
+    transform 520ms cubic-bezier(0.2, 0.78, 0.18, 1);
+  width: clamp(220px, 23vw, 350px);
+  z-index: var(--gallery-z);
+}
+
+.cardOrbitFrame .orbitCard:hover,
+.cardOrbitFrame .orbitCard.hovered,
+.cardOrbitFrame .orbitCard.active,
+.cardOrbitFrame .orbitCard:focus-visible {
+  border-color: rgba(196, 129, 255, 0.58);
+  box-shadow:
+    0 34px 120px rgba(196, 129, 255, 0.26),
+    0 18px 58px rgba(0, 0, 0, 0.44);
+  outline: none;
+  transform:
+    translate(-50%, -50%)
+    translateX(var(--gallery-x))
+    translateY(var(--gallery-y))
+    rotateZ(var(--gallery-tilt))
+    rotateY(var(--gallery-rotate-y))
+    scale(var(--gallery-scale));
+}
+
+.cardOrbitFrame .orbitCard.active {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.cardOrbitFrame .orbitCard > .border-glow-inner {
+  align-content: end;
+}
+
+.cardOrbitFrame .orbitCard img {
+  filter: grayscale(0.36) saturate(0.95) contrast(1.05) brightness(0.82);
+}
+
+.cardOrbitFrame .orbitCard.active img,
+.cardOrbitFrame .orbitCard:hover img,
+.cardOrbitFrame .orbitCard.hovered img,
+.cardOrbitFrame .orbitCard:focus-visible img {
+  filter: grayscale(0.04) saturate(1.12) contrast(1.05) brightness(0.94);
+  transform: scale(1.06);
+}
+
+.seasonPreview {
+  left: 50%;
+  max-width: 460px;
+  padding: 28px 30px;
+  pointer-events: auto;
+  top: 72px;
+  transform: translateX(-50%);
+  width: min(42vw, 460px);
+}
+
+.seasonPreview.isVisible {
+  transform: translateX(-50%);
+}
+
+.seasonPreview h3 {
+  font-size: clamp(28px, 2.4vw, 44px);
+}
+
+.seasonLegend {
+  bottom: 28px;
+  z-index: 6;
+}
+
+@media (max-width: 980px) {
+  .seasonFrame {
+    min-height: 720px;
+  }
+
+  .mapContent {
+    height: 720px;
+  }
+
+  .seasonPreview {
+    width: min(68vw, 460px);
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(270px, 39vw, 380px);
+    width: clamp(200px, 31vw, 310px);
+  }
+}
+
+@media (max-width: 760px) {
+  .seasonFrame {
+    min-height: 680px;
+  }
+
+  .mapContent {
+    height: 680px;
+  }
+
+  .seasonPreview {
+    left: 50%;
+    max-width: none;
+    right: auto;
+    top: 32px;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+  }
+
+  .orbitRail {
+    top: 72%;
+    width: 760px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(240px, 66vw, 320px);
+    top: 66%;
+    width: clamp(170px, 58vw, 250px);
+  }
+
+  .seasonLegend {
+    bottom: 18px;
+    gap: 8px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .seasonLegend button {
+    font-size: 12px;
+    padding: 8px 12px 8px 8px;
+  }
+}
+
+/* Final project map layout override: clean stage with bottom circular gallery */
+.mapSection {
+  background:
+    radial-gradient(circle at 74% 14%, rgba(196, 129, 255, 0.08), transparent 28rem),
+    #080609;
+  padding-bottom: 72px;
+}
+
+.mapTitle {
+  margin-bottom: clamp(18px, 3vw, 34px);
+  max-width: 980px;
+}
+
+.mapTitle h2 {
+  font-size: clamp(62px, 8vw, 138px);
+  line-height: 0.86;
+}
+
+.seasonFrame {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin-inline: calc((100vw - min(1120px, calc(100vw - 40px))) / -2);
+  min-height: clamp(390px, 38vw, 560px);
+  overflow: hidden;
+}
+
+.seasonFrame::before,
+.seasonFrame::after {
+  display: none;
+}
+
+.mapContent {
+  height: clamp(390px, 38vw, 560px);
+  overflow: hidden;
+}
+
+.cardOrbitFrame {
+  background: transparent;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cardOrbitFrame::before,
+.cardOrbitFrame::after,
+.gradientField {
+  display: none;
+}
+
+.seasonPreview {
+  display: none;
+}
+
+.orbitRail {
+  border-color: rgba(196, 129, 255, 0.15);
+  height: clamp(150px, 17vw, 250px);
+  opacity: 0.62;
+  top: 70%;
+  width: min(108vw, 1420px);
+}
+
+.cardOrbitFrame .orbitCard {
+  height: clamp(230px, 25vw, 350px);
+  top: 52%;
+  width: clamp(170px, 18vw, 260px);
+}
+
+.seasonLegend {
+  bottom: 8px;
+  left: 50%;
+  max-width: min(88vw, 1040px);
+  right: auto;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+@media (max-width: 980px) {
+  .seasonFrame {
+    min-height: 500px;
+  }
+
+  .mapContent {
+    height: 500px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(220px, 34vw, 320px);
+    width: clamp(165px, 27vw, 240px);
+  }
+}
+
+@media (max-width: 760px) {
+  .mapTitle h2 {
+    font-size: clamp(48px, 15vw, 82px);
+  }
+
+  .seasonFrame {
+    margin-inline: -18px;
+    min-height: 540px;
+  }
+
+  .mapContent {
+    height: 540px;
+  }
+
+  .orbitRail {
+    top: 70%;
+    width: 760px;
+  }
+
+  .cardOrbitFrame .orbitCard {
+    height: clamp(210px, 58vw, 300px);
+    top: 52%;
+    width: clamp(155px, 46vw, 220px);
+  }
+
+  .seasonLegend {
+    bottom: 8px;
+  }
+}
+
+/* Final card crop override: remove empty upper card band and fit 5 cards */
+.cardOrbitFrame .orbitCard {
+  height: clamp(220px, 23vw, 330px);
+  width: clamp(158px, 16vw, 238px);
+}
+
+.cardOrbitFrame .orbitCard > .border-glow-inner {
+  overflow: hidden;
+}
+
+.cardOrbitFrame .orbitCard img {
+  height: 128%;
+  object-position: center 72%;
+  top: -24%;
+}
+
+.cardOrbitFrame .orbitCard.active img,
+.cardOrbitFrame .orbitCard:hover img,
+.cardOrbitFrame .orbitCard.hovered img,
+.cardOrbitFrame .orbitCard:focus-visible img {
+  transform: scale(1.05);
+}
+
+.orbitShade {
+  background: linear-gradient(180deg, rgba(3, 7, 14, 0.04), rgba(3, 7, 14, 0.08) 34%, rgba(3, 7, 14, 0.84));
+}
+
+@media (max-width: 760px) {
+  .cardOrbitFrame .orbitCard {
+    height: clamp(200px, 54vw, 286px);
+    width: clamp(140px, 42vw, 205px);
+  }
+
+  .cardOrbitFrame .orbitCard img {
+    height: 130%;
+    top: -25%;
+  }
+}
+
+/* Stronger crop for circular gallery cards: start from the visual middle */
+.cardOrbitFrame .orbitCard img {
+  height: 178%;
+  object-position: center bottom;
+  top: -72%;
+}
+
+.cardOrbitFrame .orbitCard.active img,
+.cardOrbitFrame .orbitCard:hover img,
+.cardOrbitFrame .orbitCard.hovered img,
+.cardOrbitFrame .orbitCard:focus-visible img {
+  transform: scale(1.03);
+}
+
+/* Remove the visible empty upper band from each circular gallery card */
+.cardOrbitFrame .orbitCard {
+  clip-path: inset(32% 0 0 0 round 16px);
+}
+
+.cardOrbitFrame .orbitCard > .edge-light {
+  display: none;
+}
+
+/* Raise cropped cards after removing the empty band */
+.cardOrbitFrame .orbitCard {
+  top: 38%;
+}
+
+.orbitRail {
+  top: 58%;
+}
+
+@media (max-width: 760px) {
+  .cardOrbitFrame .orbitCard {
+    top: 40%;
+  }
+
+  .orbitRail {
+    top: 60%;
+  }
+}
+
+/* Bring the five-card gallery into the module viewport */
+.cardOrbitFrame .orbitCard {
+  top: 28%;
+}
+
+.orbitRail {
+  top: 48%;
+}
+
+@media (max-width: 760px) {
+  .cardOrbitFrame .orbitCard {
+    top: 32%;
+  }
+
+  .orbitRail {
+    top: 52%;
+  }
+}
+
+/* Career timeline: GSAP scroll-reveal layout */
+.strengthSection {
+  background:
+    radial-gradient(circle at 92% 42%, rgba(196, 129, 255, 0.16), transparent 22rem),
+    #080609;
+  min-height: 120vh;
+  padding-bottom: clamp(96px, 12vw, 180px);
+}
+
+.strengthSection h2 {
+  font-size: clamp(58px, 7vw, 126px);
+  line-height: 0.9;
+  margin-bottom: clamp(72px, 10vw, 150px);
+  max-width: 980px;
+}
+
+.careerTimeline {
+  display: grid;
+  gap: clamp(76px, 9vw, 140px);
+  margin-top: 18px;
+  position: relative;
+}
+
+.careerLine {
+  background: rgba(196, 129, 255, 0.1);
+  bottom: 6%;
+  left: 52%;
+  overflow: visible;
+  position: absolute;
+  top: 2%;
+  transform: translateX(-50%);
+  width: 2px;
+  z-index: 0;
+}
+
+.careerLineFill {
+  background: linear-gradient(180deg, rgba(194, 164, 255, 0.2), #a855f7 48%, #c084fc);
+  bottom: 0;
+  box-shadow: 0 0 26px rgba(168, 85, 247, 0.7);
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.careerLineFill::after {
+  background: #a855f7;
+  border-radius: 50%;
+  bottom: -8px;
+  box-shadow: 0 0 28px 10px rgba(168, 85, 247, 0.48);
+  content: "";
+  height: 16px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 16px;
+}
+
+.careerItem {
+  align-items: center;
+  display: grid;
+  gap: clamp(28px, 4vw, 74px);
+  grid-template-columns: minmax(240px, 0.9fr) minmax(150px, 0.45fr) minmax(320px, 1fr);
+  min-height: 170px;
+  position: relative;
+  z-index: 1;
+}
+
+.careerRole h3 {
+  color: var(--ink);
+  font-size: clamp(32px, 3vw, 58px);
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+
+.careerRole span {
+  color: var(--lavender);
+  display: block;
+  font-size: clamp(18px, 1.6vw, 30px);
+  font-weight: 700;
+}
+
+.careerYear {
+  align-items: center;
+  display: flex;
+  gap: clamp(18px, 2vw, 36px);
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.careerYear strong {
+  color: rgba(234, 229, 236, 0.84);
+  font-size: clamp(50px, 5.2vw, 96px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+
+.careerDot {
+  background: #a855f7;
+  border-radius: 50%;
+  box-shadow: 0 0 28px 12px rgba(168, 85, 247, 0.42);
+  flex: 0 0 auto;
+  height: 14px;
+  margin-right: -7px;
+  width: 14px;
+}
+
+.careerItem p {
+  color: rgba(234, 229, 236, 0.64);
+  font-size: clamp(17px, 1.35vw, 24px);
+  line-height: 1.75;
+  margin: 0;
+  max-width: 720px;
+}
+
+@media (max-width: 980px) {
+  .careerLine {
+    left: 26px;
+  }
+
+  .careerItem {
+    gap: 14px;
+    grid-template-columns: 1fr;
+    padding-left: 58px;
+  }
+
+  .careerYear {
+    grid-row: 1;
+    justify-content: flex-start;
+  }
+
+  .careerDot {
+    left: 20px;
+    margin: 0;
+    position: absolute;
+    top: 18px;
+  }
+
+  .careerRole {
+    grid-row: 2;
+  }
+
+  .careerItem p {
+    grid-row: 3;
+  }
+}
+
+@media (max-width: 760px) {
+  .strengthSection h2 {
+    font-size: clamp(44px, 13vw, 72px);
+    margin-bottom: 64px;
+  }
+
+  .careerTimeline {
+    gap: 72px;
+  }
+
+  .careerRole h3 {
+    font-size: 32px;
+  }
+
+  .careerYear strong {
+    font-size: 52px;
+  }
+}
+
+/* Align career timeline dots and line on one axis without covering years */
+.careerTimeline {
+  --timeline-axis: 54%;
+}
+
+.careerLine {
+  left: var(--timeline-axis);
+}
+
+.careerItem {
+  column-gap: clamp(44px, 5vw, 96px);
+  grid-template-columns: minmax(260px, 0.9fr) minmax(210px, 0.46fr) minmax(340px, 1fr);
+}
+
+.careerYear {
+  padding-right: clamp(64px, 5vw, 112px);
+}
+
+.careerDot {
+  left: var(--timeline-axis);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  translate: -50% -50%;
+  z-index: 2;
+}
+
+@media (max-width: 980px) {
+  .careerTimeline {
+    --timeline-axis: 26px;
+  }
+
+  .careerLine {
+    left: var(--timeline-axis);
+  }
+
+  .careerItem {
+    grid-template-columns: 1fr;
+  }
+
+  .careerYear {
+    padding-right: 0;
+  }
+
+  .careerDot {
+    left: var(--timeline-axis);
+    top: 18px;
+    translate: -50% 0;
+  }
+}
+
+/* Premium tech visual pass */
+:root {
+  --paper: #060509;
+  --paper-warm: #0c0911;
+  --ink: #f4f1f7;
+  --muted: #9d98a8;
+  --line: rgba(244, 241, 247, 0.12);
+  --soft: rgba(244, 241, 247, 0.055);
+  --violet: #a970ff;
+  --lavender: #b995ff;
+  --hot: #d9c6ff;
+  --glow: #a970ff;
+  --ghost: rgba(244, 241, 247, 0.035);
+  --shadow: 0 40px 140px rgba(0, 0, 0, 0.46);
+  --radius-panel: 22px;
+  --radius-card: 18px;
+}
+
+html {
+  background: #060509;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% -10%, rgba(169, 112, 255, 0.18), transparent 30rem),
+    radial-gradient(circle at 88% 8%, rgba(217, 198, 255, 0.08), transparent 28rem),
+    linear-gradient(180deg, #060509 0%, #08060c 44%, #050408 100%);
+  color: var(--ink);
+  font-feature-settings: "ss01" 1, "cv01" 1;
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 72px 72px;
+  content: "";
+  inset: 0;
+  mask-image: linear-gradient(to bottom, black 0%, black 18%, transparent 82%);
+  opacity: 0.45;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+.appShell::after {
+  background:
+    linear-gradient(90deg, transparent, rgba(185, 149, 255, 0.08), transparent),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 7px);
+  content: "";
+  height: 1px;
+  left: 0;
+  opacity: 0.5;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+}
+
+.siteHeader {
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  background:
+    linear-gradient(180deg, rgba(16, 13, 21, 0.82), rgba(8, 6, 12, 0.58));
+  border: 1px solid rgba(244, 241, 247, 0.1);
+  border-radius: 999px;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  left: 50%;
+  margin-top: 14px;
+  min-height: 68px;
+  padding: 0 18px 0 22px;
+  right: auto;
+  top: 0;
+  transform: translateX(-50%);
+  width: min(1180px, calc(100vw - 36px));
+}
+
+.logo {
+  font-size: clamp(27px, 2.4vw, 38px);
+  letter-spacing: 0.01em;
+}
+
+.logo span:first-child,
+.logo span:last-child {
+  color: var(--lavender);
+  text-shadow: 0 0 22px rgba(169, 112, 255, 0.52);
+}
+
+.siteHeader nav {
+  gap: clamp(24px, 4vw, 58px);
+}
+
+.siteHeader nav a,
+.headerTools span,
+.headerTools a {
+  color: rgba(244, 241, 247, 0.72);
+  font-weight: 760;
+}
+
+.headerTools a,
+.headerTools span {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.13);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.hero {
+  background:
+    linear-gradient(90deg, rgba(6, 5, 9, 0.72) 0%, rgba(6, 5, 9, 0.34) 48%, rgba(6, 5, 9, 0.72) 100%),
+    radial-gradient(circle at 48% 56%, rgba(169, 112, 255, 0.2), transparent 31rem),
+    #060509;
+  min-height: 100dvh;
+}
+
+.hero::before {
+  opacity: 0.72;
+}
+
+.hero::after {
+  background:
+    linear-gradient(180deg, rgba(6, 5, 9, 0.15), rgba(6, 5, 9, 0.7)),
+    radial-gradient(circle at 52% 66%, transparent 0 20%, rgba(6, 5, 9, 0.78) 78%);
+}
+
+.heroNarrative {
+  filter: drop-shadow(0 28px 70px rgba(0, 0, 0, 0.48));
+  position: relative;
+}
+
+.heroNarrative::before {
+  background:
+    linear-gradient(90deg, rgba(185, 149, 255, 0.34), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
+  border-radius: 999px;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -30px;
+  width: min(520px, 70vw);
+}
+
+.heroNarrative::after {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  color: rgba(244, 241, 247, 0.48);
+  content: "AI PRODUCT OPERATING SYSTEM";
+  font-size: 11px;
+  font-weight: 780;
+  letter-spacing: 0.16em;
+  padding: 9px 14px;
+  position: absolute;
+  right: clamp(0px, 4vw, 92px);
+  top: clamp(220px, 28vw, 390px);
+  white-space: nowrap;
+}
+
+.heroNarrative h1,
+.mapTitle h2,
+.galleryTop h2,
+.strengthSection h2,
+.projectHeroDetail h1 {
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.heroNarrative h1 {
+  color: rgba(255, 255, 255, 0.96);
+  font-size: clamp(76px, 11vw, 178px);
+  line-height: 0.78;
+}
+
+.heroStatement,
+.mapTitle span,
+.aboutCopy p,
+.careerItem p,
+.contactCopy > p {
+  color: rgba(244, 241, 247, 0.66);
+}
+
+.heroActions a,
+.seasonPreview button,
+.depthControls > button,
+.projectBack {
+  transition: transform 160ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.heroActions a:active,
+.seasonPreview button:active,
+.depthControls > button:active,
+.projectBack:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.heroActions a:first-child {
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.34), transparent 38%),
+    linear-gradient(135deg, #b995ff, #7c3cff);
+  box-shadow: 0 18px 64px rgba(169, 112, 255, 0.34);
+  color: #08060c;
+}
+
+.heroActions a:last-child,
+.projectBack {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.aboutSection,
+.mapSection,
+.gallerySection,
+.strengthSection,
+.contactSection {
+  background:
+    radial-gradient(circle at 84% 12%, rgba(169, 112, 255, 0.1), transparent 27rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 20rem),
+    #060509;
+  padding-block: clamp(96px, 11vw, 180px);
+  position: relative;
+  scroll-margin-top: 108px;
+}
+
+.aboutSection::after,
+.mapSection::after,
+.gallerySection::after,
+.strengthSection::after,
+.contactSection::after {
+  background:
+    linear-gradient(90deg, transparent, rgba(185, 149, 255, 0.18), transparent);
+  content: "";
+  height: 1px;
+  left: 7vw;
+  opacity: 0.42;
+  position: absolute;
+  right: 7vw;
+  top: 0;
+}
+
+.motionSection::before {
+  color: rgba(169, 112, 255, calc(var(--motion-title-opacity) * 0.52));
+  letter-spacing: 0.03em;
+}
+
+.idCard,
+.metricStrip,
+.seasonLegend button,
+.contactLinks a,
+.contactLinks span,
+.depthCopy,
+.detailPointGrid div {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.026));
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: var(--radius-card);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 80px rgba(0, 0, 0, 0.24);
+}
+
+.metricStrip {
+  overflow: hidden;
+}
+
+.metricStrip div {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.metricStrip strong,
+.sectionKicker,
+.mapTitle p,
+.idBody small,
+.careerRole span,
+.depthTabs span {
+  color: var(--lavender);
+}
+
+.mapSection {
+  padding-top: clamp(92px, 10vw, 158px);
+}
+
+.mapSection .container {
+  position: relative;
+}
+
+.mapSection .container::before {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  content: "";
+  height: 340px;
+  left: 50%;
+  opacity: 0.34;
+  position: absolute;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  width: min(74vw, 980px);
+}
+
+.seasonFrame {
+  mask-image: linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%);
+  position: relative;
+}
+
+.seasonFrame::after {
+  background:
+    linear-gradient(90deg, rgba(6, 5, 9, 0.9), transparent 18%, transparent 82%, rgba(6, 5, 9, 0.9)),
+    linear-gradient(180deg, transparent 0%, rgba(6, 5, 9, 0.72) 92%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.cardOrbitFrame .orbitCard {
+  border-color: rgba(255, 255, 255, 0.13);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.42);
+}
+
+.cardOrbitFrame .orbitCard.active {
+  border-color: rgba(185, 149, 255, 0.45);
+  box-shadow: 0 28px 110px rgba(169, 112, 255, 0.24);
+}
+
+.seasonLegend button {
+  border-radius: 999px;
+}
+
+.gallerySection {
+  overflow: hidden;
+}
+
+.projectScroller {
+  gap: clamp(22px, 2.4vw, 38px);
+}
+
+.galleryCard {
+  border-color: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-panel);
+  box-shadow: 0 34px 120px rgba(0, 0, 0, 0.38);
+}
+
+.galleryCard > .border-glow-inner {
+  border-radius: inherit;
+}
+
+.galleryCard img {
+  filter: grayscale(0.2) saturate(0.92) brightness(0.78);
+}
+
+.galleryCardContent {
+  bottom: 34px;
+}
+
+.galleryCard h3 {
+  color: rgba(255, 255, 255, 0.94);
+  letter-spacing: -0.025em;
+}
+
+.galleryCard::after {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 24%),
+    linear-gradient(0deg, rgba(6, 5, 9, 0.7), transparent 45%);
+}
+
+.careerTimeline {
+  max-width: 1320px;
+  padding-block: clamp(18px, 3vw, 42px);
+}
+
+.strengthSection h2 {
+  font-size: clamp(48px, 5.4vw, 92px);
+  line-height: 0.96;
+  margin-bottom: clamp(54px, 7vw, 110px);
+  max-width: 1120px;
+}
+
+.careerLine {
+  background: rgba(185, 149, 255, 0.08);
+}
+
+.careerLineFill,
+.careerDot {
+  background: #9f6cff;
+}
+
+.careerLineFill {
+  box-shadow: 0 0 34px rgba(159, 108, 255, 0.62);
+}
+
+.careerDot {
+  box-shadow: 0 0 28px 10px rgba(159, 108, 255, 0.42);
+}
+
+.careerRole h3 {
+  letter-spacing: -0.03em;
+}
+
+.careerItem {
+  border-radius: 24px;
+  padding-block: clamp(34px, 5vw, 76px);
+}
+
+.careerItem:hover {
+  background: linear-gradient(90deg, transparent, rgba(169, 112, 255, 0.04), transparent);
+}
+
+.careerYear strong {
+  color: rgba(244, 241, 247, 0.78);
+}
+
+.contactImage {
+  min-height: 520px;
+}
+
+.portraitBlack {
+  background:
+    radial-gradient(circle at 36% 34%, rgba(169, 112, 255, 0.18), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-panel);
+}
+
+.projectPage {
+  background: #060509;
+}
+
+.depthPanel,
+.depthCopy {
+  border-radius: var(--radius-panel);
+}
+
+@media (max-width: 980px) {
+  .siteHeader {
+    border-radius: 24px;
+    min-height: 72px;
+    width: calc(100vw - 28px);
+  }
+
+  .heroNarrative h1 {
+    font-size: clamp(64px, 18vw, 118px);
+  }
+
+  .strengthSection h2 {
+    font-size: clamp(42px, 10vw, 76px);
+  }
+
+  .aboutSection,
+  .mapSection,
+  .gallerySection,
+  .strengthSection,
+  .contactSection {
+    padding-block: 86px;
+  }
+}
+
+@media (max-width: 760px) {
+  .siteHeader {
+    margin-top: 10px;
+  }
+
+  .heroNarrative h1,
+  .mapTitle h2,
+  .galleryTop h2,
+  .strengthSection h2 {
+    letter-spacing: -0.025em;
+  }
+
+  .heroActions a {
+    min-height: 52px;
+  }
+
+  .strengthSection h2 {
+    font-size: clamp(38px, 11vw, 58px);
+    line-height: 1.02;
+    margin-bottom: 52px;
+  }
+
+  .heroNarrative::after {
+    display: none;
+  }
+}
+
+/* ── 四维度预览卡片网格 ── */
+.dimensionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 56px;
+  padding: 0 4px;
+}
+
+.dimensionCard {
+  background: var(--ghost);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  transition: border-color 0.35s ease, background 0.35s ease;
+}
+
+.dimensionCard:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dimensionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.dimensionEn {
+  font-family: "Inter", "SF Pro", system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--violet);
+  background: rgba(196, 129, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.dimensionHeader h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.dimensionCard h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+
+.dimensionBody {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.dimensionPoints {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dimensionPoints li {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+  padding-left: 18px;
+  position: relative;
+}
+
+.dimensionPoints li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--violet);
+  opacity: 0.5;
+}
+
+@media (max-width: 980px) {
+  .dimensionGrid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 42px;
+  }
+
+  .dimensionCard {
+    padding: 22px 20px 20px;
+  }
+}
+
+/* Final responsive contact overrides */
+.contactSection {
+  min-height: 100dvh;
+}
+
+.contactGrid {
+  align-items: center;
+  gap: clamp(48px, 7vw, 120px);
+  grid-template-columns: minmax(420px, 0.88fr) minmax(0, 1.12fr);
+}
+
+.contactImage {
+  min-height: 0;
+  overflow: visible;
+  padding: clamp(18px, 2.2vw, 34px) 0 0 clamp(18px, 2.2vw, 34px);
+}
+
+.portraitBlack {
+  aspect-ratio: 1.16 / 1;
+  display: block;
+  inset: auto;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.portraitBlack::before {
+  background: linear-gradient(135deg, rgba(185, 149, 255, 0.22), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(185, 149, 255, 0.24);
+  border-radius: inherit;
+  inset: -18px 18px 18px -18px;
+  z-index: -2;
+}
+
+.portraitBlack::after {
+  background: linear-gradient(180deg, rgba(6, 5, 9, 0.02) 52%, rgba(6, 5, 9, 0.38));
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.contactSketch {
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 34%;
+  transform: scale(1.08);
+  width: 100%;
+}
+
+.portraitBlack span {
+  background: rgba(7, 5, 10, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  left: clamp(18px, 3vw, 34px);
+  padding: 9px 13px;
+  position: absolute;
+  top: clamp(18px, 3vw, 34px);
+  z-index: 2;
+}
+
+.contactCopy {
+  min-width: 0;
+}
+
+.contactCopy h2 {
+  font-size: clamp(48px, 5.4vw, 92px);
+  line-height: 0.98;
+  max-width: 780px;
+  text-wrap: balance;
+}
+
+.contactCopy > p:not(.sectionKicker) {
+  font-size: clamp(16px, 1.4vw, 21px);
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+.contactLinks {
+  align-items: stretch;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  margin-top: clamp(30px, 4vw, 52px);
+}
+
+.contactLinks a,
+.contactLinks span {
+  align-items: center;
+  display: inline-flex;
+  min-height: 52px;
+  overflow-wrap: anywhere;
+  width: fit-content;
+}
+
+@media (max-width: 1180px) {
+  .contactGrid {
+    gap: 58px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contactImage {
+    margin-inline: auto;
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .contactCopy {
+    margin-inline: auto;
+    max-width: 860px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding-inline: clamp(18px, 5vw, 28px);
+  }
+
+  .contactSection {
+    min-height: auto;
+    padding-block: 76px;
+  }
+
+  .contactGrid {
+    gap: 42px;
+  }
+
+  .contactImage {
+    padding: 12px 0 0 12px;
+  }
+
+  .portraitBlack {
+    aspect-ratio: 1 / 1.02;
+    border-radius: 20px;
+  }
+
+  .contactSketch {
+    object-position: 50% 28%;
+    transform: scale(1.04);
+  }
+
+  .contactCopy h2 {
+    font-size: clamp(44px, 13vw, 66px);
+    line-height: 1.02;
+    margin-bottom: 24px;
+  }
+
+  .contactCopy > p:not(.sectionKicker) {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .contactLinks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contactLinks a,
+  .contactLinks span {
+    justify-content: flex-start;
+    padding: 14px 16px;
+    width: 100%;
+  }
+
+  .motionSection::before {
+    font-size: clamp(64px, 22vw, 118px);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    min-width: 0;
+  }
+
+  .contactSection {
+    padding-block: 64px;
+  }
+
+  .portraitBlack {
+    aspect-ratio: 0.92 / 1;
+  }
+
+  .portraitBlack span {
+    font-size: 12px;
+    left: 14px;
+    padding: 7px 10px;
+    top: 14px;
+  }
+
+  .contactCopy h2 {
+    font-size: clamp(40px, 14vw, 54px);
   }
 }

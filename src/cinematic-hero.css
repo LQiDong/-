@@ -1,0 +1,126 @@
+.hero {
+  align-items: stretch;
+  background: #07101e;
+  isolation: isolate;
+  min-height: 100dvh;
+  padding: 0 clamp(22px, 5vw, 86px);
+}
+
+.hero::before {
+  background: linear-gradient(90deg, rgba(4, 10, 19, 0.88) 0%, rgba(4, 10, 19, 0.5) 32%, transparent 58%), linear-gradient(180deg, rgba(2, 7, 14, 0.3), transparent 36%, rgba(2, 7, 14, 0.74));
+  inset: 0;
+  mask-image: none;
+  opacity: 1;
+  z-index: 2;
+}
+
+.hero::after {
+  background: linear-gradient(180deg, transparent 72%, #080609 100%);
+  height: 38%;
+  z-index: 3;
+}
+
+.cinematicHeroBackdrop {
+  animation: heroBreath 14s ease-in-out infinite alternate;
+  background-image: url("../assets/hero-celestial-angel.png");
+  background-position: 54% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(0.92) contrast(1.04);
+  inset: -2%;
+  opacity: 1;
+  transform-origin: 62% 48%;
+  z-index: 1;
+}
+
+.heroNarrative {
+  align-self: center;
+  display: grid;
+  gap: 24px;
+  margin-top: 38px;
+  max-width: min(820px, 55vw);
+  position: relative;
+  z-index: 5;
+}
+
+.heroNarrative .heroIntro {
+  color: rgba(210, 227, 246, 0.72);
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  margin: 0;
+  text-align: left;
+}
+
+.heroNarrative h1 {
+  color: #f3f7fb;
+  font-size: clamp(52px, 5.4vw, 98px);
+  font-weight: 620;
+  letter-spacing: -0.065em;
+  line-height: 0.94;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.heroStatement {
+  color: rgba(225, 234, 244, 0.72);
+  font-size: clamp(16px, 1.25vw, 21px);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 32em;
+}
+
+.heroNarrative .heroActions {
+  bottom: auto;
+  justify-content: flex-start;
+  left: auto;
+  margin-top: 4px;
+  position: relative;
+  right: auto;
+}
+
+.heroNarrative .heroActions a {
+  backdrop-filter: blur(14px);
+  border-color: rgba(225, 237, 249, 0.26);
+  min-width: 150px;
+  transition: background-color 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.heroNarrative .heroActions a:first-child { background: #e9f0f7; color: #08111e; }
+.heroNarrative .heroActions a:last-child { background: rgba(7, 16, 30, 0.34); color: #edf4fb; }
+.heroNarrative .heroActions a:hover { border-color: rgba(255, 255, 255, 0.58); transform: translateY(-2px); }
+
+.heroCoordinate {
+  bottom: 40px;
+  color: rgba(219, 232, 246, 0.5);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  margin: 0;
+  position: absolute;
+  right: clamp(22px, 5vw, 86px);
+  z-index: 5;
+}
+
+@keyframes heroBreath {
+  from { transform: scale(1.015) translate3d(0, 0, 0); }
+  to { transform: scale(1.05) translate3d(-0.4%, -0.25%, 0); }
+}
+
+@media (max-width: 760px) {
+  .hero { min-height: 100dvh; padding-inline: 20px; }
+  .cinematicHeroBackdrop { background-position: 63% center; inset: 0; }
+  .hero::before { background: linear-gradient(180deg, rgba(3, 9, 17, 0.42), rgba(3, 9, 17, 0.14) 38%, rgba(3, 9, 17, 0.88) 82%), linear-gradient(90deg, rgba(3, 9, 17, 0.56), transparent 78%); }
+  .heroNarrative { align-self: end; gap: 18px; margin: 0 0 94px; max-width: 100%; }
+  .heroNarrative h1 { font-size: clamp(46px, 13vw, 68px); line-height: 0.98; }
+  .heroStatement { font-size: 15px; max-width: 28em; }
+  .heroNarrative .heroActions { gap: 10px; }
+  .heroNarrative .heroActions a { height: 50px; min-width: 0; padding-inline: 20px; }
+  .heroCoordinate { bottom: 24px; right: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematicHeroBackdrop { animation: none; }
+}

@@ -1,0 +1,546 @@
+.cinematicParticleMorph {
+  background: #020711;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  perspective: 1200px;
+  z-index: 0;
+}
+
+.morphScene,
+.morphFrame,
+.morphCanvas,
+.morphInkWash,
+.morphStarField,
+.morphVignette {
+  inset: 0;
+  position: absolute;
+}
+
+.morphScene {
+  inset: -3.5%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.morphFrame {
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 48%;
+  width: 100%;
+  will-change: opacity, transform, filter;
+}
+
+.morphEndFrame { opacity: 0; }
+
+.morphCanvas {
+  height: 100%;
+  mix-blend-mode: screen;
+  width: 100%;
+  z-index: 3;
+}
+
+.morphStarField {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.9) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(112,218,255,.72) 0 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(255,232,174,.7) 0 .8px, transparent 1.2px);
+  background-position: 0 0, 41px 73px, 94px 17px;
+  background-size: 137px 137px, 193px 193px, 251px 251px;
+  mix-blend-mode: screen;
+  opacity: .36;
+  z-index: 2;
+  animation: morphStars 8s ease-in-out infinite alternate;
+}
+
+.morphInkWash {
+  background:
+    radial-gradient(ellipse at 44% 48%, rgba(8, 239, 255, .44), transparent 12%),
+    conic-gradient(from 12deg at 50% 50%, transparent 0 7%, rgba(0,0,0,.92) 10% 17%, transparent 22% 30%, rgba(17,151,173,.42) 36% 43%, transparent 50% 62%, rgba(0,0,0,.88) 68% 78%, transparent 84%);
+  filter: blur(18px) contrast(1.4);
+  mask-image: radial-gradient(ellipse at center, black 0 36%, transparent 70%);
+  opacity: 0;
+  transform-origin: center;
+  z-index: 4;
+  will-change: opacity, transform;
+}
+
+.morphVignette {
+  background:
+    linear-gradient(90deg, rgba(1,5,12,.84) 0%, rgba(1,5,12,.28) 34%, transparent 62%),
+    linear-gradient(180deg, rgba(1,4,10,.22), transparent 43%, rgba(1,4,10,.9) 100%),
+    radial-gradient(ellipse at center, transparent 32%, rgba(1,4,10,.54) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero,
+.aboutSection,
+.mapSection {
+  isolation: isolate;
+  position: relative;
+}
+
+.hero > :not(.cinematicParticleMorph),
+.aboutSection > *,
+.mapSection > * {
+  position: relative;
+  z-index: 2;
+}
+
+.aboutSection,
+.mapSection {
+  background:
+    linear-gradient(180deg, rgba(2,7,17,.3), rgba(2,7,17,.54)),
+    radial-gradient(circle at 78% 20%, rgba(56,212,224,.09), transparent 28rem) !important;
+}
+
+.aboutSection::after,
+.mapSection::after {
+  z-index: 3;
+}
+
+@keyframes morphStars {
+  from { opacity: .2; transform: translate3d(0, 0, 0) scale(1); }
+  to { opacity: .48; transform: translate3d(-9px, 7px, 0) scale(1.02); }
+}
+
+@media (max-width: 760px) {
+  .morphFrame { object-position: 54% center; }
+  .morphVignette {
+    background: linear-gradient(180deg, rgba(1,4,10,.16), transparent 34%, rgba(1,4,10,.88) 82%), radial-gradient(ellipse at center, transparent 24%, rgba(1,4,10,.5));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morphStarField { animation: none; }
+  .morphCanvas, .morphInkWash { display: none; }
+}
+
+/* Four-project constellation: balanced around a single navigation core. */
+.projectConstellation {
+  height: clamp(650px, 72vw, 900px);
+  overflow: hidden;
+  perspective: 1200px;
+  position: relative;
+  touch-action: pan-y;
+  width: 100%;
+}
+
+.constellationAtmosphere {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(116, 216, 232, .12), transparent 31%),
+    radial-gradient(circle at 18% 25%, rgba(185, 149, 255, .08), transparent 22%),
+    radial-gradient(circle at 82% 75%, rgba(217, 198, 255, .07), transparent 22%);
+  inset: 8% 4%;
+  position: absolute;
+}
+
+.constellationPlane {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.constellationAxis {
+  background: linear-gradient(90deg, transparent, rgba(185, 149, 255, .22), rgba(116, 216, 232, .18), transparent);
+  left: 50%;
+  opacity: .72;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.axisHorizontal {
+  height: 1px;
+  width: 60%;
+}
+
+.axisVertical {
+  height: 58%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  width: 1px;
+}
+
+.constellationCore {
+  align-items: center;
+  background: rgba(6, 10, 17, .82);
+  border: 1px solid rgba(185, 149, 255, .34);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 20px 80px rgba(0,0,0,.42);
+  display: flex;
+  flex-direction: column;
+  height: 116px;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) translateZ(50px);
+  width: 116px;
+  z-index: 5;
+}
+
+.constellationCore strong {
+  color: #eee7f8;
+  font-size: 35px;
+  line-height: 1;
+}
+
+.constellationCore small {
+  color: rgba(217, 198, 255, .62);
+  font-size: 9px;
+  letter-spacing: .18em;
+  margin-top: 8px;
+}
+
+.constellationCorePulse {
+  border: 1px solid rgba(116, 216, 232, .42);
+  border-radius: 50%;
+  inset: -1px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.constellationNode {
+  appearance: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  height: clamp(205px, 22vw, 285px);
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(var(--node-tilt));
+  width: clamp(260px, 27vw, 370px);
+  z-index: 2;
+}
+
+.constellationNode:focus-visible {
+  outline: 2px solid rgba(185, 149, 255, .88);
+  outline-offset: 7px;
+}
+
+.constellationCard {
+  border: 1px solid rgba(229, 239, 247, .14);
+  border-radius: 18px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  transform-origin: center;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+.constellationCard > .border-glow-inner {
+  border-radius: inherit;
+}
+
+.constellationCard img {
+  filter: saturate(.72) brightness(.52);
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  opacity: .52;
+  position: absolute;
+  transition: filter .5s ease, opacity .5s ease, transform .7s cubic-bezier(.16,1,.3,1);
+  width: 100%;
+}
+
+.constellationNode.active .constellationCard img,
+.constellationNode:hover .constellationCard img {
+  filter: saturate(.92) brightness(.68);
+  opacity: .72;
+  transform: scale(1.045);
+}
+
+.constellationShade {
+  background: linear-gradient(180deg, rgba(3,8,15,.08), rgba(3,8,15,.88));
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.constellationMeta,
+.constellationCard strong,
+.constellationCard small {
+  left: 24px;
+  position: absolute;
+  right: 24px;
+  z-index: 2;
+}
+
+.constellationMeta {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  top: 22px;
+}
+
+.constellationCard strong {
+  bottom: 55px;
+  color: rgba(248, 246, 250, .95);
+  font-size: clamp(22px, 2.2vw, 34px);
+  letter-spacing: -.025em;
+  line-height: 1.08;
+}
+
+.constellationCard small {
+  bottom: 24px;
+  color: rgba(229, 225, 234, .62);
+  font-size: 13px;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .projectConstellation {
+    height: 820px;
+  }
+
+  .constellationAxis,
+  .constellationCore {
+    display: none;
+  }
+
+  .constellationPlane {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+    height: auto;
+    inset: 0;
+    padding: 18px 4px;
+    position: relative;
+    transform: none !important;
+  }
+
+  .constellationNode {
+    height: 180px;
+    left: auto !important;
+    position: relative;
+    top: auto !important;
+    transform: none;
+    width: 100%;
+  }
+
+  .constellationCard strong {
+    font-size: 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellationPlane,
+  .constellationCard,
+  .constellationCard img {
+    transition: none !important;
+  }
+}
+
+/* Final four-project interaction: one clear gallery, no duplicate controls. */
+.mapContent {
+  display: block !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+.mapContent > .seasonPreview,
+.mapContent > .seasonLegend {
+  display: none !important;
+}
+
+.projectAccordion {
+  display: flex;
+  gap: 16px;
+  height: clamp(560px, 56vw, 720px);
+  overflow: visible;
+  padding: 18px 4px 30px;
+  position: relative;
+  width: 100%;
+}
+
+.projectAccordionPanel {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  flex-basis: 0;
+  flex-grow: 1;
+  height: 100%;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+}
+
+.projectAccordionPanel:focus-visible {
+  outline: 2px solid rgba(185, 149, 255, .9);
+  outline-offset: 6px;
+}
+
+.projectAccordionCard {
+  border: 1px solid rgba(229, 239, 247, .14);
+  border-radius: 18px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  transform-origin: center bottom;
+  width: 100%;
+  will-change: transform;
+}
+
+.projectAccordionCard > .border-glow-inner {
+  border-radius: inherit;
+}
+
+.projectAccordionCard img {
+  filter: saturate(.72) brightness(.54);
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  opacity: .66;
+  position: absolute;
+  transition: filter .55s ease, opacity .55s ease, transform .8s cubic-bezier(.16,1,.3,1);
+  width: 100%;
+}
+
+.projectAccordionPanel.active .projectAccordionCard img,
+.projectAccordionPanel:hover .projectAccordionCard img {
+  filter: saturate(.96) brightness(.72);
+  opacity: .9;
+  transform: scale(1.045);
+}
+
+.accordionShade {
+  background:
+    linear-gradient(180deg, rgba(2,7,14,.1) 15%, rgba(2,7,14,.18) 42%, rgba(2,7,14,.95) 100%),
+    linear-gradient(90deg, rgba(2,7,14,.45), transparent 60%);
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.accordionIndex,
+.accordionSeason,
+.accordionCopy {
+  position: absolute;
+  z-index: 2;
+}
+
+.accordionIndex {
+  color: rgba(241, 235, 248, .92);
+  font-size: 15px;
+  font-weight: 820;
+  left: 24px;
+  top: 24px;
+}
+
+.accordionSeason {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: .15em;
+  right: 24px;
+  text-transform: uppercase;
+  top: 27px;
+}
+
+.accordionCopy {
+  bottom: 30px;
+  left: 24px;
+  right: 24px;
+}
+
+.accordionCopy strong {
+  color: rgba(249, 247, 251, .96);
+  display: block;
+  font-size: clamp(24px, 2.5vw, 40px);
+  letter-spacing: -.035em;
+  line-height: 1.05;
+  margin-bottom: 13px;
+}
+
+.accordionCopy small {
+  color: rgba(235, 231, 239, .68);
+  display: block;
+  font-size: 14px;
+  line-height: 1.45;
+  max-width: 34ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accordionAction {
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,.14);
+  color: rgba(245, 241, 248, .92);
+  display: flex;
+  font-size: 13px;
+  font-weight: 720;
+  justify-content: space-between;
+  margin-top: 22px;
+  opacity: 0;
+  padding-top: 16px;
+  transform: translateY(10px);
+  transition: opacity .35s ease, transform .45s cubic-bezier(.16,1,.3,1);
+}
+
+.accordionAction::after {
+  content: ">";
+  font-size: 17px;
+}
+
+.projectAccordionPanel.active .accordionAction,
+.projectAccordionPanel:hover .accordionAction,
+.projectAccordionPanel:focus-visible .accordionAction {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .projectAccordion {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+  }
+
+  .projectAccordionPanel {
+    height: 360px;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .projectAccordion {
+    grid-template-columns: 1fr;
+  }
+
+  .projectAccordionPanel {
+    height: 310px;
+  }
+
+  .accordionCopy strong {
+    font-size: 28px;
+  }
+
+  .accordionAction {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectAccordionCard,
+  .projectAccordionCard img,
+  .accordionAction {
+    transition: none !important;
+  }
+}

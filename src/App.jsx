@@ -1,6 +1,286 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import BorderGlow from "./components/BorderGlow";
+import CinematicParticleMorph from "./CinematicParticleMorph";
+import ProjectAccordion from "./ProjectAccordion";
 import { metrics, projects, siteContent, strengths } from "./content";
+import { gsap, ScrollTrigger } from "./lib/gsap";
+import "./collage-polish.css";
+import profileSketch from "./assets/profile-sketch.png";
+
+function OpeningCurtain() {
+  return (
+    <div className="openingCurtain" aria-hidden="true">
+      <div className="openingPanel panelLeft" />
+      <div className="openingPanel panelRight" />
+      <div className="openingCollage">
+        <div className="openingTicket openingTicketLeft">
+          <small>DATA / OPERATIONS</small>
+          <strong>04Y</strong>
+          <span>数据驱动经验</span>
+        </div>
+        <figure className="openingPortraitPaper">
+          <img src={profileSketch} alt="" />
+          <figcaption>PROFILE / 01</figcaption>
+        </figure>
+        <div className="openingTicket openingTicketRight">
+          <small>AI / EVALUATION</small>
+          <strong>2000W+</strong>
+          <span>广告预算管理</span>
+        </div>
+      </div>
+      <div className="openingText">
+        <span>AI PRODUCT MANAGER · PORTFOLIO 2026</span>
+        <strong data-shadow="GAO JING">GAO JING</strong>
+        <em>把复杂业务，做成可验证的产品</em>
+      </div>
+      <div className="openingPalette"><i /><i /><i /><i /></div>
+      <div className="openingLine" />
+    </div>
+  );
+}
+
+function MotionDirector() {
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      document.querySelector(".openingCurtain")?.remove();
+      return undefined;
+    }
+
+    const context = gsap.context(() => {
+      gsap.set("body", { overflow: "hidden" });
+      gsap.set(".siteHeader", { y: -32, opacity: 0 });
+      gsap.set(".heroIntro, .particleTitle, .heroArtLine, .heroMeta, .heroActions, .systemTag", {
+        y: 34,
+        opacity: 0,
+        filter: "blur(14px)"
+      });
+      gsap.set(".robotHeroLayer", { scale: 1.08, opacity: 0, filter: "blur(18px)" });
+      gsap.set(".openingCollage > *, .openingPalette", { opacity: 0 });
+
+      const opening = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: () => {
+          gsap.set("body", { overflow: "" });
+          document.querySelector(".openingCurtain")?.remove();
+          ScrollTrigger.refresh();
+        }
+      });
+
+      opening
+        .fromTo(".openingText span", { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75 })
+        .fromTo(".openingText strong", { y: 60, opacity: 0, scaleX: 1.18 }, { y: 0, opacity: 1, scaleX: 1, duration: 1.05 }, "-=0.35")
+        .fromTo(".openingText em", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, "-=0.62")
+        .fromTo(".openingPortraitPaper", { y: 36, rotation: 7, opacity: 0 }, { y: 0, rotation: 2.5, opacity: 0.82, duration: 0.9 }, "-=0.76")
+        .fromTo(".openingTicketLeft", { x: 44, rotation: -9, opacity: 0 }, { x: 0, rotation: -4, opacity: 1, duration: 0.78 }, "-=0.72")
+        .fromTo(".openingTicketRight", { x: -44, rotation: 8, opacity: 0 }, { x: 0, rotation: 3, opacity: 1, duration: 0.78 }, "<")
+        .to(".openingPalette", { opacity: 1, duration: 0.45 }, "-=0.5")
+        .fromTo(".openingLine", { scaleX: 0, transformOrigin: "50% 50%" }, { scaleX: 1, duration: 0.9 }, "-=0.55")
+        .to(".openingText, .openingCollage, .openingPalette", { y: -24, opacity: 0, filter: "blur(10px)", duration: 0.58 }, "+=0.18")
+        .to(".openingLine", { scaleX: 0, duration: 0.45 }, "<")
+        .to(".panelLeft", { yPercent: -104, duration: 1.15, ease: "expo.inOut" }, "-=0.12")
+        .to(".panelRight", { yPercent: 104, duration: 1.15, ease: "expo.inOut" }, "<")
+        .to(".openingCurtain", { opacity: 0, duration: 0.32 }, "-=0.18")
+        .to(".siteHeader", { y: 0, opacity: 1, duration: 0.9 }, "-=1.05")
+        .to(".robotHeroLayer", { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.35 }, "-=1")
+        .to(".heroIntro", { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.1 }, "-=0.95")
+        .to(".particleTitle", { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.35 }, "-=0.78")
+        .fromTo(".heroArtLine", {
+          yPercent: 42,
+          rotation: 2.5,
+          skewX: -8,
+          opacity: 0.18,
+          filter: "blur(6px)"
+        }, {
+          yPercent: 0,
+          rotation: 0,
+          skewX: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.72,
+          stagger: 0.08,
+          ease: "expo.out"
+        }, "-=1.12")
+        .to(".heroMeta, .heroActions, .systemTag", {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 1,
+          stagger: 0.08
+        }, "-=0.82");
+
+      gsap.utils.toArray(".motionSection").forEach((section) => {
+        const title = section.querySelector(".motionTitle");
+        const kicker = section.querySelector(".sectionKicker, .mapTitle p");
+        const copy = section.querySelectorAll(".motionCopy");
+        const cards = section.querySelectorAll(".motionCard");
+        const media = section.querySelectorAll(".motionImage");
+
+        gsap.fromTo(section, { "--motion-title-x": "-10%", "--motion-title-opacity": 0 }, {
+          "--motion-title-x": "0%",
+          "--motion-title-opacity": 0.14,
+          duration: 1.3,
+          ease: "power3.out",
+          scrollTrigger: { trigger: section, start: "top 74%" }
+        });
+
+        if (kicker) {
+          gsap.fromTo(kicker, { y: 34, opacity: 0, filter: "blur(10px)" }, {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: { trigger: section, start: "top 76%" }
+          });
+        }
+
+        if (title) {
+          gsap.fromTo(title, {
+            y: 120,
+            opacity: 0,
+            scaleX: 1.08,
+            filter: "blur(14px)",
+            clipPath: "inset(0 0 100% 0)"
+          }, {
+            y: 0,
+            opacity: 1,
+            scaleX: 1,
+            filter: "blur(0px)",
+            clipPath: "inset(0 0 0% 0)",
+            duration: 1.15,
+            ease: "expo.out",
+            scrollTrigger: { trigger: section, start: "top 70%" }
+          });
+        }
+
+        if (copy.length) {
+          gsap.fromTo(copy, { x: 34, y: 28, opacity: 0, filter: "blur(10px)", clipPath: "inset(0 0 100% 0)" }, {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            clipPath: "inset(0 0 0% 0)",
+            duration: 0.95,
+            ease: "power3.out",
+            stagger: 0.1,
+            scrollTrigger: { trigger: section, start: "top 62%" }
+          });
+        }
+
+        if (cards.length) {
+          gsap.fromTo(cards, { y: 86, opacity: 0, rotateX: 6, filter: "blur(10px)" }, {
+            y: 0,
+            opacity: 1,
+            rotateX: 0,
+            filter: "blur(0px)",
+            duration: 1,
+            ease: "power3.out",
+            stagger: 0.14,
+            scrollTrigger: { trigger: section, start: "top 62%" }
+          });
+        }
+
+        media.forEach((item) => {
+          const image = item.matches(".idCard") ? null : item.querySelector("img");
+          gsap.fromTo(item, { clipPath: "inset(12% 0 12% 0)", opacity: 0.72 }, {
+            clipPath: "inset(0% 0 0% 0)",
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: { trigger: item, start: "top 82%" }
+          });
+          if (image) {
+            gsap.fromTo(image, { scale: 1.12, y: 42 }, {
+              scale: 1.02,
+              y: -28,
+              ease: "none",
+              scrollTrigger: { trigger: item, start: "top bottom", end: "bottom top", scrub: 0.7 }
+            });
+          }
+        });
+      });
+    });
+
+    return () => context.revert();
+  }, []);
+
+  return null;
+}
+
+function InteractiveSurfaceMotion() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const root = document.documentElement;
+    const cleanups = [];
+    const context = gsap.context(() => {
+      gsap.utils.toArray(".heroActions a").forEach((button, index) => {
+        const enter = () => gsap.to(button, {
+          y: -7,
+          scale: 1.035,
+          boxShadow: index === 0 ? "0 18px 44px rgba(116,216,232,.24)" : "0 16px 40px rgba(185,149,255,.18)",
+          duration: 0.38,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+        const leave = () => gsap.to(button, { y: 0, scale: 1, boxShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.5, ease: "power3.out", overwrite: "auto" });
+        const down = () => gsap.to(button, { scale: 0.97, duration: 0.13, ease: "power2.out", overwrite: "auto" });
+        const up = () => gsap.to(button, { scale: 1.035, duration: 0.24, ease: "back.out(2)", overwrite: "auto" });
+        button.addEventListener("pointerenter", enter);
+        button.addEventListener("pointerleave", leave);
+        button.addEventListener("pointerdown", down);
+        button.addEventListener("pointerup", up);
+        cleanups.push(() => {
+          button.removeEventListener("pointerenter", enter);
+          button.removeEventListener("pointerleave", leave);
+          button.removeEventListener("pointerdown", down);
+          button.removeEventListener("pointerup", up);
+        });
+      });
+
+      gsap.utils.toArray(".dimensionCard").forEach((card, index) => {
+        const enter = () => gsap.to(card, {
+          y: -12,
+          scale: 1.012,
+          rotationX: 2.2,
+          rotationY: index % 2 ? -2.2 : 2.2,
+          boxShadow: "0 28px 64px rgba(9,28,43,.45), 0 0 28px rgba(116,216,232,.11)",
+          duration: 0.55,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+        const leave = () => gsap.to(card, { y: 0, scale: 1, rotationX: 0, rotationY: 0, boxShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.65, ease: "power3.out", overwrite: "auto" });
+        card.addEventListener("pointerenter", enter);
+        card.addEventListener("pointerleave", leave);
+        cleanups.push(() => {
+          card.removeEventListener("pointerenter", enter);
+          card.removeEventListener("pointerleave", leave);
+        });
+      });
+
+      gsap.utils.toArray(".summerFirefly").forEach((firefly, index) => {
+        gsap.to(firefly, {
+          x: 12 + (index % 4) * 7,
+          y: -18 - (index % 5) * 5,
+          opacity: 0.92,
+          scale: 1.45,
+          duration: 2.2 + (index % 5) * 0.48,
+          delay: index * 0.11,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+      });
+    }, root);
+    return () => {
+      cleanups.forEach((cleanup) => cleanup());
+      context.revert();
+    };
+  }, []);
+
+  return null;
+}
 
 function Header() {
   const { header } = siteContent;
@@ -12,7 +292,7 @@ function Header() {
       </a>
       <nav aria-label={header.navAriaLabel}>
         {header.nav.map((item) => (
-          <a href={item.href} key={item.href}>
+          <a href={item.href} key={`${item.href}-${item.label}`}>
             <span className="navRoll" data-copy={item.label}>{item.label}</span>
           </a>
         ))}
@@ -237,43 +517,21 @@ function ParticleHeroTitle() {
 }
 
 function Hero() {
-  const { hero } = siteContent;
-
   return (
     <section className="hero" id="top">
-      <RobotHeroLayer />
-      <div className="heroSpace" aria-hidden="true">
-        <span className="orbit orbitOne" />
-        <span className="orbit orbitTwo" />
-        <span className="drift driftOne" />
-        <span className="drift driftTwo" />
-        <span className="drift driftThree" />
+      <CinematicParticleMorph />
+      <div className="heroNarrative">
+        <p className="heroIntro">GAO JING · AI PRODUCT MANAGER</p>
+        <h1 className="heroArtTitle" aria-label="把复杂问题，做成可验证的产品">
+          <span className="heroArtClip"><span className="heroArtLine heroArtLineAccent">把复杂问题，做成可验证的产品</span></span>
+        </h1>
+        <p className="heroStatement">从数据驱动运营出发，定义 AI 产品链路、评测体系与可持续迭代。</p>
+        <div className="heroActions">
+          <a href="#projects">查看项目</a>
+          <a href="#contact">联系我</a>
+        </div>
       </div>
-      <div className="systemTags" aria-hidden="true">
-        {hero.systemTags.map((tag, index) => (
-          <span className={`systemTag ${["tagOne", "tagTwo", "tagThree", "tagFour"][index]}`} key={tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className="heroIntro">
-        <span>{hero.introEyebrow}</span>
-        <strong>{hero.introName}</strong>
-      </div>
-      <ParticleHeroTitle />
-      <div className="heroMeta heroMetaLeft">
-        <span>{hero.leftLabel}</span>
-        <strong>{hero.leftText}</strong>
-      </div>
-      <div className="heroMeta heroMetaRight">
-        <span>{hero.rightLabel}</span>
-        <strong>{hero.rightText}</strong>
-      </div>
-      <div className="heroActions">
-        {hero.actions.map((action) => (
-          <a href={action.href} key={action.href}>{action.label}</a>
-        ))}
-      </div>
+      <p className="heroCoordinate" aria-hidden="true">HORIZON / 2026</p>
     </section>
   );
 }
@@ -282,12 +540,21 @@ function About() {
   const { about } = siteContent;
 
   return (
-    <section className="aboutSection" id="about">
+    <section className="aboutSection motionSection" data-motion-title="ABOUT" id="about">
+      <div className="summerNightDecor" aria-hidden="true">
+        <span className="summerMoon" />
+        {Array.from({ length: 14 }, (_, index) => (
+          <i className="summerFirefly" key={index} style={{
+            "--firefly-x": `${8 + ((index * 19) % 84)}%`,
+            "--firefly-y": `${13 + ((index * 23) % 76)}%`
+          }} />
+        ))}
+      </div>
       <div className="container aboutGrid">
-        <aside className="idCard">
+        <aside className="idCard motionCard motionImage">
           <div className="idClamp" />
           <div className="idPhoto">
-            <span>{about.cardName}</span>
+            <img src={profileSketch} alt="高静的素描头像" />
           </div>
           <div className="idBody">
             <small>{about.cardMeta}</small>
@@ -301,11 +568,11 @@ function About() {
 
         <div className="aboutCopy">
           <p className="sectionKicker">{about.kicker}</p>
-          <h2>{about.title}</h2>
-          {about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          <h2 className="motionTitle">{about.title}</h2>
+          {about.paragraphs.map((paragraph) => <p className="motionCopy" key={paragraph}>{paragraph}</p>)}
           <div className="metricStrip">
             {metrics.map((metric) => (
-              <div key={metric.label}>
+              <div className="motionCard" key={metric.label}>
                 <strong>{metric.value}</strong>
                 <span>{metric.label}</span>
               </div>
@@ -346,7 +613,7 @@ const seasonSpots = [
     id: "winter",
     season: siteContent.map.seasons.winter,
     label: "Winter",
-    project: siteContent.map.futureProject,
+    project: projects[3],
     accent: "#b7e8ff",
     gradient: "ice"
   }
@@ -360,6 +627,10 @@ const detailTabs = [
 ];
 
 function getProjectDetail(project) {
+  if (project.sections) {
+    return project.sections;
+  }
+
   const details = project.details?.length ? project.details : [project.subtitle, "这里预留项目建设过程、交付边界与下一阶段方向。"];
 
   return {
@@ -384,13 +655,6 @@ function getProjectDetail(project) {
       points: ["核心指标：任务完成率 / 有效建议率 / 一致性", "评测方法：baseline 对比 + badcase 归因", "迭代方向：扩展样本、收敛提示词、补齐边界"]
     }
   };
-}
-
-function getProjectFromHash(hash) {
-  const match = hash.match(/^#project\/(.+)$/);
-  if (!match) return null;
-  const id = decodeURIComponent(match[1]);
-  return seasonSpots.find((spot) => spot.project.id === id)?.project || null;
 }
 
 function ProjectMap3D({ activeProject, hoverSpot, onHoverSpot, onSelectSpot }) {
@@ -773,96 +1037,144 @@ function ProjectMap3D({ activeProject, hoverSpot, onHoverSpot, onSelectSpot }) {
   return <div className="projectMapCanvas" ref={mountRef} aria-label={siteContent.map.canvasAriaLabel} />;
 }
 
-function ProjectCardOrbit({ activeProject, hoverSpotId, onHoverSpot, onSelectSpot }) {
-  const [rotation, setRotation] = useState(0);
-  const dragRef = useRef({ active: false, moved: false, startX: 0, startRotation: 0 });
+function ProjectCardOrbit({ activeProject, hoverSpotId, onHoverSpot, onRotationChange, onSelectSpot, rotation }) {
+  const frameRef = useRef(null);
   const activeSpot = seasonSpots.find((spot) => spot.project.id === activeProject.id) || seasonSpots[0];
   const focusedIndex = ((rotation % seasonSpots.length) + seasonSpots.length) % seasonSpots.length;
   const focusedSpot = seasonSpots[focusedIndex];
   const focusSpot = seasonSpots.find((spot) => spot.id === hoverSpotId) || focusedSpot || activeSpot;
   const rotateTo = useCallback((nextRotation) => {
     const normalized = ((nextRotation % seasonSpots.length) + seasonSpots.length) % seasonSpots.length;
-    setRotation(normalized);
+    onRotationChange(normalized);
     onHoverSpot(seasonSpots[normalized].id);
-  }, [onHoverSpot]);
-
-  const handleWheel = useCallback((event) => {
-    event.preventDefault();
-    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
-    if (Math.abs(delta) < 8) return;
-    rotateTo(rotation + (delta > 0 ? 1 : -1));
-  }, [rotateTo, rotation]);
-
-  const handlePointerDown = useCallback((event) => {
-    dragRef.current = { active: true, moved: false, startX: event.clientX, startRotation: rotation };
-    event.currentTarget.setPointerCapture(event.pointerId);
-  }, [rotation]);
-
-  const handlePointerMove = useCallback((event) => {
-    if (!dragRef.current.active) return;
-    const distance = event.clientX - dragRef.current.startX;
-    if (Math.abs(distance) > 8) dragRef.current.moved = true;
-    const nextRotation = dragRef.current.startRotation - Math.round(distance / 120);
-    rotateTo(nextRotation);
-  }, [rotateTo]);
-
-  const stopDrag = useCallback((event) => {
-    dragRef.current.active = false;
-    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-  }, []);
+  }, [onHoverSpot, onRotationChange]);
 
   useEffect(() => {
     const activeIndex = seasonSpots.findIndex((spot) => spot.project.id === activeProject.id);
-    if (activeIndex >= 0) setRotation(activeIndex);
-  }, [activeProject.id]);
+    if (activeIndex >= 0) onRotationChange(activeIndex);
+  }, [activeProject.id, onRotationChange]);
+
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return undefined;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const context = gsap.context(() => {
+      const cards = gsap.utils.toArray(".constellationCard");
+      const activeCard = cards[focusedIndex];
+      gsap.to(cards, {
+        autoAlpha: 0.68,
+        scale: 0.94,
+        y: 0,
+        duration: reduceMotion ? 0 : 0.65,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+      if (activeCard) {
+        gsap.to(activeCard, {
+          autoAlpha: 1,
+          scale: 1.07,
+          y: -12,
+          duration: reduceMotion ? 0 : 0.8,
+          ease: "back.out(1.25)",
+          overwrite: "auto"
+        });
+      }
+      if (!reduceMotion) {
+        gsap.fromTo(".constellationCorePulse", { scale: 0.72, autoAlpha: 0.62 }, {
+          scale: 1.55,
+          autoAlpha: 0,
+          duration: 1.15,
+          ease: "power2.out"
+        });
+      }
+    }, frame);
+    return () => context.revert();
+  }, [focusedIndex]);
+
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return undefined;
+    const plane = frame.querySelector(".constellationPlane");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return undefined;
+    const rotateXTo = gsap.quickTo(plane, "rotationX", { duration: 0.8, ease: "power3.out" });
+    const rotateYTo = gsap.quickTo(plane, "rotationY", { duration: 0.8, ease: "power3.out" });
+    const onMove = (event) => {
+      const rect = frame.getBoundingClientRect();
+      rotateXTo(((event.clientY - rect.top) / rect.height - 0.5) * -5);
+      rotateYTo(((event.clientX - rect.left) / rect.width - 0.5) * 6);
+    };
+    const onLeave = () => {
+      rotateXTo(0);
+      rotateYTo(0);
+    };
+    frame.addEventListener("pointermove", onMove, { passive: true });
+    frame.addEventListener("pointerleave", onLeave);
+    return () => {
+      frame.removeEventListener("pointermove", onMove);
+      frame.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
 
   return (
     <div
-      className={`cardOrbitFrame theme-${focusSpot.gradient}`}
+      className={`projectConstellation theme-${focusSpot.gradient}`}
       aria-label={siteContent.map.canvasAriaLabel}
-      onPointerCancel={stopDrag}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={stopDrag}
-      onWheel={handleWheel}
+      ref={frameRef}
     >
-      <div className="gradientField" aria-hidden="true" />
-      <div className="orbitRail" aria-hidden="true" />
-      <div className="rotatingCards" style={{ "--carousel-rotation": `${rotation * -90}deg` }}>
+      <div className="constellationAtmosphere" aria-hidden="true" />
+      <div className="constellationPlane">
+        <div className="constellationAxis axisHorizontal" aria-hidden="true" />
+        <div className="constellationAxis axisVertical" aria-hidden="true" />
+        <div className="constellationCore" aria-hidden="true">
+          <span className="constellationCorePulse" />
+          <strong>{String(focusedIndex + 1).padStart(2, "0")}</strong>
+          <small>PROJECTS</small>
+        </div>
         {seasonSpots.map((spot, index) => {
-          const isActive = activeProject.id === spot.project.id;
+          const isActive = index === focusedIndex;
           const isHovered = hoverSpotId === spot.id;
-          const cardRotation = index * 90;
+          const positions = [
+            { left: "23%", top: "28%", tilt: "-2.5deg" },
+            { left: "77%", top: "28%", tilt: "2.5deg" },
+            { left: "77%", top: "72%", tilt: "-1.5deg" },
+            { left: "23%", top: "72%", tilt: "1.5deg" }
+          ];
+          const position = positions[index];
 
           return (
-            <a
-              className={`orbitCard ${isActive ? "active" : ""} ${isHovered ? "hovered" : ""}`}
-              href={`#project/${spot.project.id}`}
+            <button
+              className={`constellationNode ${isActive ? "active" : ""} ${isHovered ? "hovered" : ""}`}
               key={spot.id}
-              onClick={(event) => {
-                if (dragRef.current.moved) {
-                  event.preventDefault();
-                  return;
-                }
+              onClick={() => {
                 rotateTo(index);
                 onSelectSpot(spot.id);
               }}
               onMouseEnter={() => onHoverSpot(spot.id)}
               onMouseLeave={() => onHoverSpot(null)}
-              style={{
-                "--accent": spot.accent,
-                "--card-rotation": `${cardRotation}deg`,
-                "--delay": `${index * -1.7}s`
-              }}
+              style={{ left: position.left, top: position.top, "--node-tilt": position.tilt, "--accent": spot.accent }}
+              type="button"
             >
-              <img src={spot.project.image || projects[0].image} alt="" />
-              <span className="orbitIndex">{spot.season}</span>
-              <span className="orbitLabel">{spot.label}</span>
-              <strong>{spot.project.title}</strong>
-              <small>{spot.project.type || spot.project.subtitle}</small>
-            </a>
+              <BorderGlow
+                as="div"
+                className="constellationCard"
+                backgroundColor="rgba(7, 13, 22, 0.82)"
+                borderRadius={18}
+                colors={["#b995ff", "#74d8e8", "#d9c6ff"]}
+                coneSpread={22}
+                edgeSensitivity={26}
+                fillOpacity={0.2}
+                glowColor="264 74 72"
+                glowIntensity={isActive ? 1.2 : 0.65}
+                glowRadius={30}
+              >
+                <span className="constellationShade" aria-hidden="true" />
+                <img src={spot.project.image || projects[0].image} alt="" />
+                <span className="constellationMeta">{spot.label}</span>
+                <strong>{spot.project.title}</strong>
+                <small>{spot.project.type || spot.project.subtitle}</small>
+              </BorderGlow>
+            </button>
           );
         })}
       </div>
@@ -874,48 +1186,72 @@ function ProjectMap() {
   const { map } = siteContent;
   const [activeProject, setActiveProject] = useState(projects[0]);
   const [hoverSpotId, setHoverSpotId] = useState(null);
-  const activeDetails = useMemo(() => activeProject.details, [activeProject]);
+  const [mapRotation, setMapRotation] = useState(0);
+  const lastMapWheelRef = useRef(0);
   const hoverSpot = seasonSpots.find((spot) => spot.id === hoverSpotId);
-  const previewProject = hoverSpot?.project || activeProject;
+  const activeSpot = seasonSpots.find((spot) => spot.project.id === activeProject.id) || seasonSpots[0];
+  const previewSpot = hoverSpot || activeSpot;
+  const previewProject = previewSpot.project;
 
   const openProjectPage = useCallback((spotId) => {
     const spot = seasonSpots.find((item) => item.id === spotId);
     if (!spot) return;
-
     setActiveProject(spot.project);
-    window.location.hash = `project/${spot.project.id}`;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const grid = document.querySelector(".dimensionGrid");
+    if (grid) {
+      grid.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }, []);
 
+  const handleMapWheelCapture = useCallback((event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+    if (Math.abs(delta) < 8) return;
+
+    const now = performance.now();
+    if (now - lastMapWheelRef.current < 420) return;
+    lastMapWheelRef.current = now;
+
+    const normalized = ((mapRotation + (delta > 0 ? 1 : -1)) % seasonSpots.length + seasonSpots.length) % seasonSpots.length;
+    setMapRotation(normalized);
+    setHoverSpotId(seasonSpots[normalized].id);
+  }, [mapRotation]);
+
   return (
-    <section className="mapSection" id="map">
+    <section className="mapSection motionSection" data-motion-title="PROJECT MAP" id="map" onWheelCapture={handleMapWheelCapture}>
       <div className="container">
         <div className="mapTitle">
           <p>{map.kicker}</p>
-          <h2>{map.title}</h2>
-          <span>{map.description}</span>
+          <h2 className="motionTitle">{map.title}</h2>
+          <span className="motionCopy">{map.description}</span>
         </div>
 
-        <div className="seasonFrame">
+        <div className="seasonFrame motionImage">
           <div className="mapContent">
-            <ProjectCardOrbit
+            <ProjectAccordion
               activeProject={activeProject}
+              fallbackImage={projects[0].image}
               hoverSpotId={hoverSpotId}
               onHoverSpot={setHoverSpotId}
+              onRotationChange={setMapRotation}
               onSelectSpot={openProjectPage}
+              rotation={mapRotation}
+              spots={seasonSpots}
             />
-            <aside className={`seasonPreview ${hoverSpot ? "isVisible" : ""}`} aria-hidden={!hoverSpot}>
-              <small>{hoverSpot ? `${hoverSpot.season} · ${hoverSpot.label}` : ""}</small>
-              <h3>{hoverSpot ? previewProject.title : ""}</h3>
-              <p>{hoverSpot ? previewProject.subtitle : ""}</p>
-              <button type="button" onClick={() => openProjectPage(previewProject.id)}>
-                {map.enterButton}
+            <aside className="seasonPreview motionCard isVisible">
+              <small>{`${previewSpot.season} · ${previewSpot.label}`}</small>
+              <h3>{previewProject.title}</h3>
+              <p>{previewProject.subtitle}</p>
+              <button type="button" onClick={() => openProjectPage(previewSpot.id)}>
+                查看详情 ↓
               </button>
             </aside>
             <div className="seasonLegend">
               {seasonSpots.map((spot) => (
                 <button
-                  className={activeProject.id === spot.project.id ? "active" : ""}
+                  className={`motionCard ${previewSpot.id === spot.id ? "active" : ""}`}
                   key={spot.id}
                   onClick={() => openProjectPage(spot.id)}
                   onMouseEnter={() => setHoverSpotId(spot.id)}
@@ -930,59 +1266,176 @@ function ProjectMap() {
           </div>
         </div>
 
-        <div className="mapDetails">
-          {activeDetails.map((detail) => <p key={detail}>{detail}</p>)}
+        <div className="dimensionGrid">
+          {detailTabs.map((tab) => {
+            const section = getProjectDetail(previewProject)[tab.key];
+            return (
+              <article className="dimensionCard motionCard" key={tab.key}>
+                <header className="dimensionHeader">
+                  <span className="dimensionEn">{tab.en}</span>
+                  <h3>{tab.label}</h3>
+                </header>
+                <h4>{section.title}</h4>
+                <p className="dimensionBody">{section.body}</p>
+                <ul className="dimensionPoints">
+                  {section.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
+
       </div>
     </section>
   );
 }
 
-function ProjectGallery() {
-  const { gallery } = siteContent;
+function parseCareerEntry(title, desc, index) {
+  const dateMatch = desc.match(/(\d{4}\.\d{2}\s*-\s*(?:\d{4}\.\d{2}|至今|Present))/);
+  const date = dateMatch?.[1] || (index === 0 ? "现在" : "");
+  const year = date.includes("2026") || date.includes("至今") || date.includes("Present")
+    ? "现在"
+    : (date.match(/\d{4}/)?.[0] || String(2026 - index));
+  const body = dateMatch ? desc.replace(dateMatch[0], "").replace(/^[\s|｜·、，,。-]+/, "") : desc;
+  const [roleRaw, detailRaw] = title.split(/｜|\|/);
 
-  return (
-    <section className="gallerySection" id="projects">
-      <div className="container">
-        <div className="galleryTop">
-          <h2>{gallery.title}</h2>
-          <div className="galleryArrows" aria-hidden="true">
-            <span>←</span>
-            <span>→</span>
-          </div>
-        </div>
-        <div className="projectScroller">
-          {projects.map((project) => (
-            <article className="galleryCard" id={`project-${project.id}`} key={project.id}>
-              <img src={project.image} alt={`${project.title} ${gallery.imageAltSuffix}`} />
-              <div>
-                <h3>{project.title}</h3>
-                <p>{project.type}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return {
+    body,
+    detail: detailRaw?.trim() || "AI 产品与业务增长",
+    role: roleRaw.trim(),
+    year
+  };
+}
+
+function CareerTimelineMotion({ rootRef }) {
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+
+    const context = gsap.context(() => {
+      const line = root.querySelector(".careerLine");
+      gsap.set(".careerLineFill", { scaleY: 0, transformOrigin: "top center" });
+      gsap.set(".careerItem", { opacity: 0.18, y: 54 });
+      gsap.set(".careerDot", { scale: 0.45, opacity: 0 });
+      gsap.set(".careerMeteor", { y: 0, autoAlpha: 0.35 });
+
+      gsap.to(".careerLineFill", {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 62%",
+          end: "bottom 34%",
+          scrub: true
+        }
+      });
+
+      gsap.to(".careerMeteor", {
+        y: () => Math.max(0, (line?.clientHeight || root.clientHeight) - 74),
+        autoAlpha: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 62%",
+          end: "bottom 34%",
+          scrub: 0.45,
+          invalidateOnRefresh: true
+        }
+      });
+
+      gsap.fromTo(".meteorParticle", {
+        scale: 0.45,
+        opacity: 0.18
+      }, {
+        scale: 1,
+        opacity: 0.9,
+        stagger: { each: 0.035, from: "end" },
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 64%",
+          end: "bottom 36%",
+          scrub: 0.7
+        }
+      });
+
+      gsap.to(".careerDot", {
+        opacity: 1,
+        scale: 1,
+        stagger: 0.12,
+        ease: "back.out(1.8)",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 58%",
+          end: "bottom 44%",
+          scrub: 0.7
+        }
+      });
+
+      gsap.to(".careerItem", {
+        opacity: 1,
+        y: 0,
+        stagger: 0.16,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: root,
+          start: "top 58%",
+          end: "bottom 38%",
+          scrub: 0.8
+        }
+      });
+    }, root);
+
+    return () => context.revert();
+  }, [rootRef]);
+
+  return null;
 }
 
 function Strengths() {
   const { strengths: strengthsContent } = siteContent;
+  const timelineRef = useRef(null);
 
   return (
-    <section className="strengthSection">
+    <section className="strengthSection motionSection" data-motion-title="EXPERIENCE" id="experience">
       <div className="container">
         <p className="sectionKicker">{strengthsContent.kicker}</p>
-        <h2>{strengthsContent.title}</h2>
-        <div className="strengthGrid">
-          {strengths.map(([title, desc], index) => (
-            <article key={title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-            </article>
-          ))}
+        <h2 className="motionTitle">{strengthsContent.title}</h2>
+        <div className="careerTimeline" ref={timelineRef}>
+          <CareerTimelineMotion rootRef={timelineRef} />
+          <div className="careerLine" aria-hidden="true">
+            <span className="careerLineFill" />
+            <span className="careerMeteor">
+              <i className="meteorTail" />
+              {Array.from({ length: 14 }, (_, index) => (
+                <i className="meteorParticle" key={index} style={{
+                  "--particle-x": `${((index * 11) % 31) - 15}px`,
+                  "--particle-y": `${18 + index * 7}px`,
+                  "--particle-size": `${Math.max(1.3, 4 - index * 0.18)}px`
+                }} />
+              ))}
+              <i className="meteorCore" />
+            </span>
+          </div>
+          {strengths.map(([title, desc], index) => {
+            const entry = parseCareerEntry(title, desc, index);
+
+            return (
+              <article className="careerItem" key={title}>
+                <div className="careerRole">
+                  <h3>{entry.role}</h3>
+                  <span>{entry.detail}</span>
+                </div>
+                <div className="careerYear">
+                  <strong>{entry.year}</strong>
+                  <span className="careerDot" />
+                </div>
+                <p>{entry.body}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -993,23 +1446,23 @@ function Contact() {
   const { contact } = siteContent;
 
   return (
-    <section className="contactSection" id="contact">
+    <section className="contactSection motionSection" data-motion-title="CONTACT" id="contact">
       <div className="container contactGrid">
-        <div className="contactImage">
+        <div className="contactImage motionImage">
           <div className="portraitBlack">
+            <img className="contactSketch" src={profileSketch} alt="黑白简笔画头像" />
             <span>{contact.portraitLabel}</span>
-            <strong>{contact.portraitName}</strong>
           </div>
         </div>
         <div className="contactCopy">
           <p className="sectionKicker">{contact.kicker}</p>
-          <h2>{contact.title}</h2>
-          <p>{contact.description}</p>
+          <h2 className="motionTitle">{contact.title}</h2>
+          <p className="motionCopy">{contact.description}</p>
           <div className="contactLinks">
             {contact.links.map((link) => (
               link.type === "email"
-                ? <a href={`mailto:${link.value}`} key={link.label}>{link.label}</a>
-                : <span key={link.label}>{link.label}</span>
+                ? <a className="motionCard" href={`mailto:${link.value}`} key={link.label}>{link.label}</a>
+                : <span className="motionCard" key={link.label}>{link.label}</span>
             ))}
           </div>
         </div>
@@ -1018,126 +1471,16 @@ function Contact() {
   );
 }
 
-function DepthProjectPage({ project }) {
-  const [activeTab, setActiveTab] = useState(0);
-  const content = useMemo(() => getProjectDetail(project), [project]);
-  const activeKey = detailTabs[activeTab].key;
-  const activePanel = content[activeKey];
-
-  const moveTab = useCallback((direction) => {
-    setActiveTab((current) => (current + direction + detailTabs.length) % detailTabs.length);
-  }, []);
-
-  const handleWheel = useCallback((event) => {
-    event.preventDefault();
-    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
-    if (Math.abs(delta) < 8) return;
-    moveTab(delta > 0 ? 1 : -1);
-  }, [moveTab]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [project.id]);
-
-  return (
-    <main className="projectPage">
-      <div className="projectPageBg" aria-hidden="true" />
-      <div className="projectPageShell">
-        <a className="projectBack" href="#map">← Back to Portfolio</a>
-
-        <section className="projectHeroDetail">
-          <p>{project.index || project.season} / AI Product Case</p>
-          <h1>{project.title}</h1>
-          <span>{project.subtitle}</span>
-        </section>
-
-        <section className="depthGallery" onWheel={handleWheel} aria-label={`${project.title} 项目详情`}>
-          <div className="depthStage">
-            {detailTabs.map((tab, index) => {
-              const distance = index - activeTab;
-              const absDistance = Math.abs(distance);
-              const panel = content[tab.key];
-
-              return (
-                <article
-                  className={`depthPanel ${index === activeTab ? "active" : ""}`}
-                  key={tab.key}
-                  style={{
-                    "--depth-x": `${distance * 72}px`,
-                    "--depth-z": `${-absDistance * 180}px`,
-                    "--depth-rotate": `${distance * -8}deg`,
-                    "--depth-opacity": index === activeTab ? 1 : Math.max(0.16, 0.5 - absDistance * 0.12),
-                    "--depth-blur": `${Math.min(absDistance * 2, 6)}px`
-                  }}
-                >
-                  <img src={project.image || projects[0].image} alt="" />
-                  <div>
-                    <small>{tab.en}</small>
-                    <h2>{panel.title}</h2>
-                    <p>{panel.body}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="depthCopy">
-            <p className="sectionKicker">/ {detailTabs[activeTab].label}</p>
-            <h2>{activePanel.title}</h2>
-            <p>{activePanel.body}</p>
-            <div className="detailPointGrid">
-              {activePanel.points.map((point, index) => (
-                <div key={point}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <p>{point}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="depthControls">
-            <button type="button" onClick={() => moveTab(-1)} aria-label="上一项">←</button>
-            <div className="depthTabs">
-              {detailTabs.map((tab, index) => (
-                <button
-                  className={index === activeTab ? "active" : ""}
-                  key={tab.key}
-                  onClick={() => setActiveTab(index)}
-                  type="button"
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-            <button type="button" onClick={() => moveTab(1)} aria-label="下一项">→</button>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
-}
-
 export default function App() {
-  const [routeProject, setRouteProject] = useState(() => getProjectFromHash(window.location.hash));
-
-  useEffect(() => {
-    const updateRoute = () => setRouteProject(getProjectFromHash(window.location.hash));
-    window.addEventListener("hashchange", updateRoute);
-    return () => window.removeEventListener("hashchange", updateRoute);
-  }, []);
-
-  if (routeProject) {
-    return <DepthProjectPage project={routeProject} />;
-  }
-
   return (
     <>
+      <OpeningCurtain />
+      <MotionDirector />
+      <InteractiveSurfaceMotion />
       <Header />
       <Hero />
       <About />
       <ProjectMap />
-      <ProjectGallery />
       <Strengths />
       <Contact />
     </>
